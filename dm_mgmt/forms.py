@@ -53,3 +53,6 @@ class ClientForm(ModelForm):
 class OutputServicesCSV(forms.Form):
     min_date = forms.TextInput(attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'jj.mm.aaaa'}),
     max_date = forms.TextInput(attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'jj.mm.aaaa'})
+    
+    class Meta:
+        fields = ['min_date', 'max_date']

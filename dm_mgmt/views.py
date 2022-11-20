@@ -8,7 +8,7 @@ from django.contrib import messages
 # Create your views here.
 
 from .models import Client, Massage, Service
-from .forms import ServiceForm, ClientForm, OutputServicesCSV#, TbdForm
+from .forms import ServiceForm, ClientForm, OutputServicesCSV
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
@@ -145,24 +145,6 @@ def update_service(request, service_id):
         return redirect('list-services')
     return render(request, 'services/update_service.html', {'service': service, 'form': form})
 
-@login_required
-def output_service_csv(request):
-    form = OutputServicesCSV()
-    
-    return render(request, 'outputs/output_service_csv.html', {'form': form})
-
-@login_required
-def output_service_pdf(request):
-    return render(request, 'outputs/output_service_pdf.html')
-
-@login_required
-def output_client_csv(request):
-    return render(request, 'outputs/output_client_csv.html')
-
-@login_required
-def output_client_pdf(request):
-    return render(request, 'outputs/output_client_pdf.html')
-
 def login_user(request):
     if request.method == "POST":
         username = request.POST['username']
@@ -181,6 +163,35 @@ def logout_user(request):
     logout(request)
     return redirect('login-user')
 
-#def tbd(request):
-#    form = TbdForm()
-#    return render(request, 'tbd.html', {'form': form})
+@login_required
+def output_service_csv(request):
+    if request.method == "POST":
+        form = OutputServicesCSV(request.POST)
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=prestations.csv'
+        
+        writer = csv.writer(response)
+    
+        services = Service.objects.all()
+    
+        writer.writerow(['Client', 'Massage', 'Date', 'Montant encaissé'])
+        
+        for service in services:
+            writer.writerow([service.service_client_id_id, service.service_massage_id_id, service.service_date, service.service_cashed_price])
+        
+        return response
+    else:
+        form = OutputServicesCSV()
+        return render(request, 'outputs/output_service_csv.html', {'form': form})
+
+@login_required
+def output_service_pdf(request):
+    return render(request, 'outputs/output_service_pdf.html')
+
+@login_required
+def output_client_csv(request):
+    return render(request, 'outputs/output_client_csv.html')
+
+@login_required
+def output_client_pdf(request):
+    return render(request, 'outputs/output_client_pdf.html')
