@@ -1,0 +1,40 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>{{ client }}</h1>
+    <br/>
+    <label for="client_last_name">Nom :</label>
+    <div class="form-control" name="client_last_name" style="width: 300px;">{{ client.client_last_name }}</div><br/>
+    <label for="client_first_name">Prénom :</label>
+    <div class="form-control" name="client_first_name" style="width: 300px;">{{ client.client_first_name }}</div><br/>
+    <label for="client_birthdate">Date de naissance :</label>
+    <div class="form-control" name="client_birthdate" style="width: 300px;">{{ client.client_birthdate|date:'d.m.Y' }}</div><br/>
+    <label for"client_address">Adresse :</label>
+    <div class="form-control" name="client_address" style="width: 300px;">{{ client.client_address }}</div><br/>
+    <label for="client_additional_address">Complément d'adresse :</label>
+    <div class="form-control" name="client_additional_address" style="width: 300px;">{{ client.client_additional_address }}</div><br/>
+    <label for="client_zip_code">NPA :</label>
+    <div class="form-control" name="client_zip_code" style="width: 300px;">{{ client.client_zip_code }}</div><br/>
+    <label for="client_city">Localité :</label>
+    <div class="form-control" name="client_city" style="width: 300px;">{{ client.client_city }}</div><br/>
+    <label for="client_phone_1">Téléphone 1 :</label>
+    <div class="form-control" name="client_phone_1" style="width: 300px;">{{ client.client_phone_number_1 }}</div><br/>
+    <label for="client_phone_2">Téléphone 2 :</label>
+    <div class="form-control" name="client_phone_2" style="width: 300px;">{{ client.client_phone_number_2 }}</div><br/>
+    <label for="client_email_address">E-Mail :</label>
+    <div class="form-control" name="client_email_address" style="width: 300px;">{{ client.client_email_address }}</div><br/>
+    <label for="client_comment">Commentaire :
+    <div class="form-control" name="client_comment" style="width: 300px;">{{ client.client_comment }}</div><br/>
+{#    {{ form.as_p }} #}
+<br/>
+{% if massages|length > 0 %}
+<h3>Historique :</h3><br/>
+    <table>
+    {% for field in massages %}
+    <tr>
+        <td>{{ field.service_date|date:'d.m.Y' }} : </td><td>{{ field.massage_name }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+{% endif %}
+{% endblock %}

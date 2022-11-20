@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Liste des clients</h1>
+<br/>
+<table class="table table-striped table-hover">
+  {% for client in client_list %}
+    <tr>
+      <td>
+          {{ client }}
+<!--          <a href="{% url 'show-client' client.client_id %}">{{ client }}</a><br/>-->
+      </td>
+      <td>
+        <a href="{% url 'update-client' client.client_id %}">Update</a><br/>
+      </td>
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}

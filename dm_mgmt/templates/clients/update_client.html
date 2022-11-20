@@ -1,0 +1,62 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Modifier un client</h1>
+    <br/>
+    {% if submitted %}
+      <div class="alert alert-success" role="alert">
+          Le client a été modifié.
+      </div>
+    {% endif %}
+    <form action="" method="POST">
+      {% csrf_token %}
+{% comment %}
+        <div class="form-group">
+        {{ form.client_last_name }}
+        </div><br/>
+ 
+        <div class="form-group">
+        {{ form.client_first_name }}
+        </div><br/>
+
+        <div class="form-group">
+        {{ form.client_birthdate|date:"d.m.Y" }}
+        </div><br/>
+ 
+        <div class="form-group">
+        {{ form.client_address }}
+        </div><br/>
+
+        <div class="form-group">
+        {{ form.client_additional_address }}
+        </div><br/>
+
+        <div class="form-group">
+        {{ form.client_zip_code }}
+        </div><br/>
+ 
+        <div class="form-group">
+        {{ form.client_city }}
+        </div><br/>
+ 
+        <div class="form-group">
+        {{ form.client_phone_number_1 }}
+        </div><br/>
+
+        <div class="form-group">
+        {{ form.client_phone_number_2 }}
+        </div><br/>
+
+        <div class="form-group">
+        {{ form.client_email_address }}
+        </div><br/>
+
+        <div class="form-group">
+        {{ form.client_comment }}
+        </div><br/>
+{% endcomment %}
+      {{ form.as_p }}
+      <input type="submit" value="Mettre à jour" class="btn btn-secondary">
+    </form>
+    
+{% endblock %}

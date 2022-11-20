@@ -1,0 +1,12 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Modifier une prestation</h1>
+  <br/>
+   <form action="" method=POST>
+     {% csrf_token %}
+     {{ form.as_p }}
+     <br/>
+     <input type="submit" value="Mettre à jour" class="btn btn-secondary">
+   </form>
+{% endblock %}
