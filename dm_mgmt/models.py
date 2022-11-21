@@ -74,3 +74,15 @@ class Service(models.Model):
     #     # print(self.service_duration)
     #     # print(self.service_massage_id)
     #     return float(self.service_duration) # * self.service_massage_id.massage_price
+
+
+class ConsoService(models.Model):
+    client_id = models.IntegerField()
+    client_name = models.CharField(max_length=255, primary_key=True)
+    massage_name = models.CharField(max_length=255)
+    service_date = models.DateField()
+    service_cashed_price = models.FloatField()
+
+    class Meta:
+        managed = False
+        db_table = "dm_mgmt_conso_service"

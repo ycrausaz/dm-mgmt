@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Client, Massage, Service
+from .models import Client, Massage, Service, ConsoService
 from django.contrib.admin import widgets
 
 class MassageForm(ModelForm):
@@ -56,3 +56,8 @@ class OutputServicesCSV(forms.Form):
     
     class Meta:
         fields = ['min_date', 'max_date']
+
+class ConsoServiceForm(ModelForm):
+    class Meta:
+        model = ConsoService
+        fields = ['client_id', 'client_name', 'massage_name', 'service_date', 'service_cashed_price']

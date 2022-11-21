@@ -289,3 +289,4 @@ Temporary Items
 # End of https://www.toptal.com/developers/gitignore/api/macos,python,django
 
 db_mgmt*
+*.swp
