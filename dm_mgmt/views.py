@@ -14,10 +14,11 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 import csv
 from django.db import connection
+from datetime import datetime
 
-#import logging
-#logging.basicConfig(level=logging.INFO)
-#logger = logging.getLogger(__name__)
+import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 def home(request):
     # """View function for home page of site."""
@@ -171,17 +172,26 @@ def output_service_csv(request):
         response['Content-Disposition'] = 'attachment; filename=prestations.csv'
         
         writer = csv.writer(response)
+        
+        min_date = request.POST['min_date']
+        max_date = request.POST['max_date']
+
+        min_date = datetime.strptime(min_date, "%d.%m.%Y").strftime("%Y-%m-%d")
+        max_date = datetime.strptime(max_date, "%d.%m.%Y").strftime("%Y-%m-%d")
+
+        logger.info(min_date)
+        logger.info(max_date)
     
-        services = Service.objects.all()
+        services = ConsoService.objects.filter(service_date__range=(min_date, max_date))
     
         writer.writerow(['Client', 'Massage', 'Date', 'Montant encaissé'])
         
         for service in services:
-            writer.writerow([service.service_client_id_id, service.service_massage_id_id, service.service_date, service.service_cashed_price])
+            writer.writerow([service.client_name, service.massage_name, service.service_date, service.service_cashed_price])
         
         return response
     else:
-        form = OutputServicesCSV
+        form = OutputServicesCSV()
         return render(request, 'outputs/output_service_csv.html', {'form': form})
 
 @login_required
