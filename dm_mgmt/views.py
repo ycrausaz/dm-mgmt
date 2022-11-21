@@ -167,7 +167,6 @@ def logout_user(request):
 @login_required
 def output_service_csv(request):
     if request.method == "POST":
-        form = OutputServicesCSV(request.POST)
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment; filename=prestations.csv'
         
@@ -182,7 +181,7 @@ def output_service_csv(request):
         
         return response
     else:
-        form = OutputServicesCSV()
+        form = OutputServicesCSV
         return render(request, 'outputs/output_service_csv.html', {'form': form})
 
 @login_required

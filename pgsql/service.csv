@@ -1,0 +1,7 @@
+service_id,service_date,service_duration,service_comment,service_cashed_price,service_client_id_id,service_massage_id_id
+1,2022-11-13,90,"",120,1,4
+2,2010-10-10,323,"",100,2,2
+3,2003-03-03,13,"",124,1,12
+4,2022-12-11,45,"",66,2,10
+5,2021-11-11,50,"",500,2,10
+6,2020-11-19,234,sadfsedf,345,1,6

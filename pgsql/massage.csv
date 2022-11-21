@@ -1,0 +1,24 @@
+massage_id,massage_name,massage_duration,massage_price,massage_is_available
+1,Classique,60,100,t
+2,Classique,90,95,t
+3,Rebouto-réactivopathie ®,60,110,t
+5,Sportif,30,55,t
+6,Sportif,60,90,t
+7,Tissus profonds,60,100,t
+8,Tissus profonds,90,95,t
+9,Assis,30,50,t
+10,Prénatal,60,120,t
+11,Prénatal,90,110,t
+12,Enfants,120,200,t
+13,Ados,60,80,t
+14,Abhyanga,60,130,t
+15,Abhyanga,90,115,t
+16,Balinais,60,125,t
+17,Balinais,90,110,t
+18,San Bao,60,110,t
+19,San Bao,90,105,t
+20,Sweet Lomi,60,130,t
+21,Sweet Lomi,90,110,t
+22,Tuina minceur,60,115,t
+23,Tuina minceur,90,105,t
+4,Rebouto-réactivopathie ®,90,105,f

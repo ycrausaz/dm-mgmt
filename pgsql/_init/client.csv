@@ -1,0 +1,4 @@
+client_id,client_first_name,client_last_name,client_birthdate,client_address,client_additional_address,client_zip_code,client_city,client_phone_number_1,client_phone_number_2,client_email_address,client_comment
+2,aaa,aaa,2009-09-09,asdf,,1213,asfa,"","",yann.crausaz@gmail.com,""
+3,bbbb,bbb,2004-04-04,weasd,,1312,asdas,+41 79 123 45 67,"",yann.crausaz@gmail.com,""
+1,Yann,Crausaz,1975-07-03,Route de la Ferme 2,,1470,Estavayer-le-Lac,+41793711372,"",yann.crausaz@gmail.com,""

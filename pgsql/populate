@@ -1,0 +1,13 @@
+delete from dm_mgmt_service;
+delete from dm_mgmt_client;
+delete from dm_mgmt_massage;
+
+copy dm_mgmt_client from '/Users/yann/Prog/Python/deb-massage.ch/pgsql/client_1000.csv' delimiter ',' csv header;
+copy dm_mgmt_massage from '/Users/yann/Prog/Python/deb-massage.ch/pgsql/massage_50.csv' delimiter ',' csv header;
+copy dm_mgmt_service from '/Users/yann/Prog/Python/deb-massage.ch/pgsql/service_5000.csv' delimiter ',' csv header;
+
+BEGIN;
+SELECT setval(pg_get_serial_sequence('"dm_mgmt_client"','client_id'), coalesce(max("client_id"), 1), max("client_id") IS NOT null) FROM "dm_mgmt_client";
+SELECT setval(pg_get_serial_sequence('"dm_mgmt_massage"','massage_id'), coalesce(max("massage_id"), 1), max("massage_id") IS NOT null) FROM "dm_mgmt_massage";
+SELECT setval(pg_get_serial_sequence('"dm_mgmt_service"','service_id'), coalesce(max("service_id"), 1), max("service_id") IS NOT null) FROM "dm_mgmt_service";
+COMMIT;
