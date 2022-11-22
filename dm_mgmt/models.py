@@ -86,3 +86,4 @@ class ConsoService(models.Model):
     class Meta:
         managed = False
         db_table = "dm_mgmt_conso_service"
+        ordering = ["-service_date"]
