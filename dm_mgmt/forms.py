@@ -50,11 +50,11 @@ class ClientForm(ModelForm):
 
 #class ClientFormReadonly(ClientForm):
 
-class OutputServicesCSV(forms.Form):
+class OutputServices(forms.Form):
     min_date = forms.CharField(label='Date de début', max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'jj.mm.aaaa'}))
     max_date = forms.CharField(label='Date de fin', max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'jj.mm.aaaa'}))
-    
-    class Meta:
+
+class Meta:
         fields = ['min_date', 'max_date']
 
 class ConsoServiceForm(ModelForm):
