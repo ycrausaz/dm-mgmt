@@ -13,9 +13,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 from pathlib import Path
 
-# For the access on the LAN
-from socket import gethostname, gethostbyname
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -29,8 +26,7 @@ SECRET_KEY = 'django-insecure-yh&e&7*#d4=twil-xdzn69kdz6#k*ym9$r*1(k7z*6k^zh%hy2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-#ALLOWED_HOSTS = []
-ALLOWED_HOSTS = [gethostname(), gethostbyname(gethostname()),]
+ALLOWED_HOSTS = []
 
 
 # Application definition
