@@ -25,5 +25,5 @@ urlpatterns = [
     path('login_user', views.login_user, name='login-user'),
     path('logout_user', views.logout_user, name='logout-user'),
 #    path('tbd', views.tbd, name='tbd'),
-    path('jsi18n', JavaScriptCatalog.as_view(), name='javascript-catalog'),
+#    path('jsi18n', JavaScriptCatalog.as_view(), name='javascript-catalog'),
 ]

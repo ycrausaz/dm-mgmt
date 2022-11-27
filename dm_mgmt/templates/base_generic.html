@@ -10,9 +10,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 <!--<link rel="stylesheet" type="text/css" href="{% static 'admin/css/base.css' %}" />-->
-<link rel="stylesheet" type="text/css" href="{% static 'admin/css/widgets.css' %}" />
+<!--<link rel="stylesheet" type="text/css" href="{% static 'admin/css/widgets.css' %}" />
 <script src="{% static 'admin/js/core.js' %}"></script>
-<script src="{% url 'admin:jsi18n' %}"></script>
+<script src="{% url 'admin:jsi18n' %}"></script>-->
 <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
 <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
@@ -22,15 +22,34 @@ $(document).ready(function() {
         changeMonth:true,
         changeYear:true,
         dateFormat:"dd.mm.yy",
-        showButtonPanel: true
+//        showButtonPanel: true
     });
     $("#id_max_date").datepicker({
         changeMonth:true,
         changeYear:true,
         dateFormat:"dd.mm.yy",
-        showButtonPanel: true
+//        showButtonPanel: true
+    });
+    $("#id_service_date").datepicker({
+        changeMonth:true,
+        changeYear:true,
+        dateFormat:"dd.mm.yy",
+//        showButtonPanel: true
+    });
+    $("#id_client_birthdate").datepicker({
+        changeMonth:true,
+        changeYear:true,
+        dateFormat:"dd.mm.yy",
+//        showButtonPanel: true
     });
 });
+
+//var old_goToToday = $.datepicker._gotoToday
+//$.datepicker._gotoToday = function(id) {
+//  old_goToToday.call(this,id)
+//  this._selectDate(id)
+//}
+
 </script>
 {{ form.media }}
 <style>

@@ -2,6 +2,7 @@ from django import forms
 from django.forms import ModelForm
 from .models import Client, Massage, Service, ConsoService
 from django.contrib.admin import widgets
+from bootstrap_datepicker_plus.widgets import DatePickerInput
 
 class MassageForm(ModelForm):
     class Meta:
@@ -23,7 +24,8 @@ class ServiceForm(ModelForm):
         widgets = {
             'service_client_id': forms.Select(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Nom du client'}),
              'service_massage_id': forms.Select(attrs={'class':'form-control', 'style':'width: 300px;', 'onchange': "updatePrice();"}),#, 'placeholder':'Nom du massage'}),
-             'service_date': widgets.AdminDateWidget(attrs={'placeholder':'jj.mm.aaaa'}),
+#             'service_date': widgets.AdminDateWidget(attrs={'placeholder':'jj.mm.aaaa'}),
+             'service_date': forms.TextInput(attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'jj.mm.aaaa'}),
              'service_duration': forms.NumberInput(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Durée de la prestation'}),
             'service_comment': forms.Textarea(attrs={'class':'form-control', 'rows':5}),
              'service_cashed_price': forms.NumberInput(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Prix encaissé'}),
@@ -37,6 +39,7 @@ class ClientForm(ModelForm):
             'client_last_name': forms.TextInput(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Nom'}),
             'client_first_name': forms.TextInput(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Prénom'}),
             'client_birthdate': forms.TextInput(attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'jj.mm.aaaa'}),
+#            'client_birthdate': forms.TextInput(attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'jj.mm.aaaa'}),
 #            'client_birthdate': widgets.AdminDateWidget(attrs={'placeholder':'jj.mm.aaaa'}),
             'client_address': forms.TextInput(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Adresse'}),
             'client_additional_address': forms.TextInput(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Complément d\'adresse'}),
