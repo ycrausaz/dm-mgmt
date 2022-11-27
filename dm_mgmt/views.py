@@ -180,8 +180,10 @@ def output_service_csv(request):
     if request.method == "POST":
         response = HttpResponse(content_type='text/csv')
         min_date = request.POST['min_date']
+        logger.info("************* min_date = " + min_date)
         min_date_str = datetime.strptime(min_date, "%d.%m.%Y").strftime("%Y%m%d")
         max_date = request.POST['max_date']
+        logger.info("************* max_date = " + max_date)
         max_date_str = datetime.strptime(max_date, "%d.%m.%Y").strftime("%Y%m%d")
         filename = "prestations-" + min_date_str + "-" + max_date_str
         response['Content-Disposition'] = 'attachment; filename="' + filename + '"'
