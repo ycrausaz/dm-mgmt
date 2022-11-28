@@ -86,6 +86,7 @@ class ConsoService(models.Model):
     massage_name = models.CharField(max_length=255)
     service_date = models.DateField()
     service_cashed_price = models.FloatField()
+    service_is_voucher = models.BooleanField()
 
     class Meta:
         managed = False

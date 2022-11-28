@@ -201,10 +201,10 @@ def output_service_csv(request):
     
         services = ConsoService.objects.filter(service_date__range=(min_date, max_date))
     
-        writer.writerow(['Client', 'Massage', 'Date', 'Montant encaissé'])
+        writer.writerow(['Client', 'Massage', 'Date', 'Montant encaissé', 'Bon fait valoir'])
         
         for service in services:
-            writer.writerow([service.client_name, service.massage_name, service.service_date, service.service_cashed_price])
+            writer.writerow([service.client_name, service.massage_name, service.service_date, service.service_cashed_price, service.service_is_voucher])
         
         return response
     else:
@@ -247,7 +247,7 @@ def output_service_pdf(request):
         p.drawString(20, 800, "Prestations entre le " + min_date + " et le " + max_date)
     
         services = ConsoService.objects.filter(service_date__range=(min_date_query, max_date_query))
-        data = [['Client', 'Massage', 'Date', 'Montant encaissé']]
+        data = [['Client', 'Massage', 'Date', 'Montant encaissé', 'Bon fait valoir']]
         try:
             for service in services:
                 row = []
@@ -255,6 +255,7 @@ def output_service_pdf(request):
                 row.append(service.massage_name)
                 row.append(service.service_date)
                 row.append(service.service_cashed_price)
+                row.append(service.service_is_voucher)
                 data.append(row)
         except:
             pass
@@ -277,52 +278,6 @@ def output_service_pdf(request):
     else:
         form = OutputServices()
         return render(request, 'outputs/output_service_pdf.html', {'form': form})
-
-#def output_service_pdf(request):
-#    if request.method == "POST":
-#        response = HttpResponse(content_type='application/pdf')
-#        min_date = request.POST['min_date']
-#        min_date_str = datetime.strptime(min_date, "%d.%m.%Y").strftime("%Y%m%d")
-#        min_date_query = datetime.strptime(min_date, "%d.%m.%Y").strftime("%Y-%m-%d")
-#        max_date = request.POST['max_date']
-#        max_date_str = datetime.strptime(max_date, "%d.%m.%Y").strftime("%Y%m%d")
-#        max_date_query = datetime.strptime(max_date, "%d.%m.%Y").strftime("%Y-%m-%d")
-#        filename = "prestations-" + min_date_str + "-" + max_date_str
-#        response['Content-Disposition'] = 'attachment; filename="' + filename + '"'
-#        width, height = A4
-#
-#        def coord(x, y, unit=1):
-#            x, y = x * unit, height - y * unit
-#            return x, y
-#
-#        buf = io.BytesIO()
-#        p = canvas.Canvas(buf, pagesize=A4)
-#        p.drawString(20, 800, "Prestations entre le " + min_date + " et le " + max_date)
-#        
-#        services = ConsoService.objects.filter(service_date__range=(min_date_query, max_date_query))
-#        
-#        data = [['Client', 'Massage', 'Date', 'Montant encaissé']]
-#
-#        for service in services:
-#            row = []
-#            row.append(service.client_name)
-#            row.append(service.massage_name)
-#            row.append(service.service_date)
-#            row.append(service.service_cashed_price)
-#            data.append(row)
-#        table = Table(data, colWidths=[4*cm, 4*cm, 5*cm, 4*cm])
-#        table.wrapOn(p, width, height)
-#        table.wrapOn(p, width, height)
-#        table.drawOn(p, *coord(1.8, 9.6, cm))
-#        p.showPage()
-#        p.save
-#        pdf = buf.getvalue()
-#        buf.close()
-#        response.write(pdf)
-#        return response
-#    else:
-#        form = OutputServicesPDF()
-#        return render(request, 'outputs/output_service_pdf.html', {'form': form})
 
 @login_required
 def output_client_csv(request):

@@ -13,14 +13,6 @@ class ServiceForm(ModelForm):
     class Meta:
         model = Service
         fields = ['service_client_id', 'service_date', 'service_massage_id', 'service_is_voucher', 'service_cashed_price']
-        # labels = {
-        #     'service_client_id': '',
-        #     'service_massage_id': '',
-        #     'service_date': '',
-        #     'service_duration': '',
-        #     'service_comment': '',
-        #     'service_cashed_price': '',
-        # }
         widgets = {
             'service_client_id': forms.Select(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Nom du client'}),
              'service_massage_id': forms.Select(attrs={'class':'form-control', 'style':'width: 300px;', 'onchange': "updatePrice();"}),#, 'placeholder':'Nom du massage'}),
