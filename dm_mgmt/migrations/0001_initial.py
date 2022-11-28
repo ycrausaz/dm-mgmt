@@ -13,22 +13,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='ConsoService',
-            fields=[
-                ('client_id', models.IntegerField()),
-                ('client_name', models.CharField(max_length=255, primary_key=True, serialize=False)),
-                ('massage_name', models.CharField(max_length=255)),
-                ('service_date', models.DateField()),
-                ('service_cashed_price', models.FloatField()),
-                ('service_is_voucher', models.BooleanField()),
-            ],
-            options={
-                'db_table': 'dm_mgmt_conso_service',
-                'ordering': ['-service_date'],
-                'managed': False,
-            },
-        ),
-        migrations.CreateModel(
             name='Client',
             fields=[
                 ('client_id', models.AutoField(primary_key=True, serialize=False, unique=True)),
@@ -77,5 +61,40 @@ class Migration(migrations.Migration):
             options={
                 'ordering': ['-service_date'],
             },
+        ),
+        migrations.CreateModel(
+            name='ConsoService',
+            fields=[
+                ('client_id', models.IntegerField()),
+                ('client_name', models.CharField(max_length=255, primary_key=True, serialize=False)),
+                ('massage_name', models.CharField(max_length=255)),
+                ('service_date', models.DateField()),
+                ('service_cashed_price', models.FloatField()),
+                ('service_is_voucher', models.BooleanField()),
+            ],
+            options={
+                'db_table': 'dm_mgmt_conso_service',
+                'ordering': ['-service_date'],
+                'managed': False,
+            },
+        ),
+        migrations.RunSQL(
+            """
+            CREATE OR REPLACE VIEW public.dm_mgmt_conso_service
+             AS
+             SELECT dm_mgmt_client.client_id,
+                concat(dm_mgmt_client.client_last_name, ' ', dm_mgmt_client.client_first_name) AS client_name,
+                dm_mgmt_massage.massage_name,
+                dm_mgmt_service.service_date,
+                dm_mgmt_service.service_cashed_price,
+                dm_mgmt_service.service_is_voucher
+               FROM dm_mgmt_service
+                 JOIN dm_mgmt_massage ON dm_mgmt_massage.massage_id = dm_mgmt_service.service_massage_id_id
+                 JOIN dm_mgmt_client ON dm_mgmt_client.client_id = dm_mgmt_service.service_client_id_id;
+            
+            ALTER TABLE public.dm_mgmt_conso_service
+                OWNER TO mgmt_user;
+            """,
+            "DROP VIEW dm_mgmt_conso_service;"
         ),
     ]
