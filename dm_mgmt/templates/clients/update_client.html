@@ -10,52 +10,60 @@
     {% endif %}
     <form action="" method="POST">
       {% csrf_token %}
-{% comment %}
+        <label for="id_client_last_name">Nom :</label>
         <div class="form-group">
         {{ form.client_last_name }}
         </div><br/>
  
+        <label for="id_client_first_name">Prénom :</label>
         <div class="form-group">
         {{ form.client_first_name }}
         </div><br/>
 
+        <label for="id_client_birthdate">Date de naissance :</label>
         <div class="form-group">
-        {{ form.client_birthdate|date:"d.m.Y" }}
+        {{ form.client_birthdate }}
         </div><br/>
  
+        <label for="id_client_address">Adresse :</label>
         <div class="form-group">
         {{ form.client_address }}
         </div><br/>
 
+        <label for="id_client_additional_address">Complément d'adresse :</label>
         <div class="form-group">
         {{ form.client_additional_address }}
         </div><br/>
 
+        <label for="id_client_zip_code">NPA :</label>
         <div class="form-group">
         {{ form.client_zip_code }}
         </div><br/>
  
+        <label for="id_client_city">Localité :</label>
         <div class="form-group">
         {{ form.client_city }}
         </div><br/>
  
+        <label for="id_client_phone_number_1">Téléphone 1 :</label>
         <div class="form-group">
         {{ form.client_phone_number_1 }}
         </div><br/>
 
+        <label for="id_client_phone_number_2">Téléphone 2 :</label>
         <div class="form-group">
         {{ form.client_phone_number_2 }}
         </div><br/>
 
+        <label for="id_client_email_address">E-Mail :</label>
         <div class="form-group">
         {{ form.client_email_address }}
         </div><br/>
 
+        <label for="id_client_comment">Commentaire :</label>
         <div class="form-group">
         {{ form.client_comment }}
         </div><br/>
-{% endcomment %}
-      {{ form.as_p }}
       <input type="submit" value="Mettre à jour" class="btn btn-secondary">
     </form>
     

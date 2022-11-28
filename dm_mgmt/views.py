@@ -121,21 +121,6 @@ def add_service(request):
 def show_client(request, client_id):
     client = Client.objects.get(pk=client_id)
     form = ClientForm(request.POST or None, instance=client)
-#    query = "select massage_name, service_date from dm_mgmt_service join dm_mgmt_massage on dm_mgmt_service.service_massage_id_id = dm_mgmt_massage.massage_id and dm_mgmt_service.service_client_id_id = " + str(client_id) + " order by dm_mgmt_service.service_date desc"
-#    with connection.cursor() as cursor:
-#        cursor.execute(query)
-#        #https://stackoverflow.com/questions/14264485/django-format-raw-query-for-template-when-using-cursor-execute
-#        results = cursor.fetchall()
-#        massages_count = len(results)
-#        x = cursor.description
-#        massages = []
-#        for r in results:
-#            i = 0
-#            d = {}
-#            while i < len(x):
-#                d[x[i][0]] = r[i]
-#                i = i + 1
-#            massages.append(d)
     conso_service = ConsoService.objects.filter(client_id__exact=client_id)
     return render(request, 'clients/show_client.html', {'client': client, 'form': form, 'massages': conso_service})
 

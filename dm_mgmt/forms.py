@@ -15,9 +15,8 @@ class ServiceForm(ModelForm):
         fields = ['service_client_id', 'service_date', 'service_massage_id', 'service_is_voucher', 'service_cashed_price']
         widgets = {
             'service_client_id': forms.Select(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Nom du client'}),
-             'service_massage_id': forms.Select(attrs={'class':'form-control', 'style':'width: 300px;', 'onchange': "updatePrice();"}),#, 'placeholder':'Nom du massage'}),
-#             'service_date': widgets.AdminDateWidget(attrs={'placeholder':'jj.mm.aaaa'}),
-             'service_date': forms.TextInput(attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'jj.mm.aaaa'}),
+            'service_massage_id': forms.Select(attrs={'class':'form-control', 'style':'width: 300px;', 'onchange': "updatePrice();"}),#, 'placeholder':'Nom du massage'}),
+            'service_date': forms.DateInput(format="%d.%m.%Y", attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'jj.mm.aaaa'}),
              'service_duration': forms.NumberInput(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Durée de la prestation'}),
             'service_comment': forms.Textarea(attrs={'class':'form-control', 'rows':5}),
             'service_cashed_price': forms.NumberInput(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Prix encaissé'}),
@@ -25,15 +24,15 @@ class ServiceForm(ModelForm):
          }
 
 class ClientForm(ModelForm):
+
+#    client_birthdate = forms.DateField(widget=forms.DateInput(format='%d.%m.%Y'), input_formats=['%d.%m.%Y'])
     class Meta:
         model = Client
         fields = ['client_last_name', 'client_first_name', 'client_birthdate', 'client_address', 'client_additional_address', 'client_zip_code', 'client_city', 'client_phone_number_1', 'client_phone_number_2', 'client_email_address', 'client_comment']
         widgets = {
             'client_last_name': forms.TextInput(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Nom'}),
             'client_first_name': forms.TextInput(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Prénom'}),
-            'client_birthdate': forms.TextInput(attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'jj.mm.aaaa'}),
-#            'client_birthdate': forms.TextInput(attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'jj.mm.aaaa'}),
-#            'client_birthdate': widgets.AdminDateWidget(attrs={'placeholder':'jj.mm.aaaa'}),
+            'client_birthdate': forms.DateInput(format="%d.%m.%Y", attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'jj.mm.aaaa'}),
             'client_address': forms.TextInput(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Adresse'}),
             'client_additional_address': forms.TextInput(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Complément d\'adresse'}),
             'client_zip_code': forms.NumberInput(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'NPA'}),
