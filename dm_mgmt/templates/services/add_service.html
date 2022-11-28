@@ -8,7 +8,7 @@
 	    Le service a été ajouté.
 	</div>
   {% endif %}
-  <form action="" method="POST">
+  <form action="" method="POST" onsubmit="updateField()">
     {% csrf_token %}
 
     {{ form.as_p }}
@@ -51,6 +51,14 @@
             document.getElementById('id_service_cashed_price').disabled = false;
         }
     });
+
+    function updateField() {
+        if (document.getElementById('id_service_is_voucher').checked) {
+            document.getElementById('id_service_cashed_price').disabled = false;
+            document.getElementById('id_service_cashed_price').value = 0;
+        }
+    }
+
     </script>
 
 
