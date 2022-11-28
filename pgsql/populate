@@ -3,7 +3,7 @@ delete from dm_mgmt_client;
 delete from dm_mgmt_massage;
 
 copy dm_mgmt_client from '/Users/yann/Prog/Python/deb-massage.ch/mgmt/pgsql/client_1000.csv' delimiter ',' csv header;
-copy dm_mgmt_massage from '/Users/yann/Prog/Python/deb-massage.ch/mgmt/pgsql/massage_50.csv' delimiter ',' csv header;
+copy dm_mgmt_massage from '/Users/yann/Prog/Python/deb-massage.ch/mgmt/pgsql/massage_30_real.csv' delimiter ',' csv header;
 copy dm_mgmt_service from '/Users/yann/Prog/Python/deb-massage.ch/mgmt/pgsql/service_5000.csv' delimiter ',' csv header;
 
 BEGIN;

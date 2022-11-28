@@ -1,0 +1,31 @@
+﻿massage_id,massage_name,massage_duration,massage_price,massage_is_available,massage_ordre
+1,Classique,60,100,f,0
+2,Classique,90,140,t,0
+3,Rebouto-réactivopathie ®,60,100,f,0
+4,Rebouto-réactivopathie ®,90,140,f,0
+5,Sportif,30,60,t,0
+6,Sportif,60,100,f,0
+7,Tissus profonds,60,100,t,0
+8,Tissus profonds,90,140,f,0
+9,Assis,30,60,f,0
+10,Prénatal,60,100,t,0
+11,Prénatal,90,140,t,0
+12,Enfants,120,200,t,0
+13,Ados,60,100,f,0
+14,Abhyanga,60,100,f,0
+15,Abhyanga,90,140,f,0
+16,Balinais,60,100,f,0
+17,Balinais,90,140,t,0
+18,San Bao,60,100,f,0
+19,San Bao,90,140,t,0
+20,Tuina minceur,60,100,t,0
+21,Tuina minceur,90,140,t,0
+22,Bon 30',60,50,f,0
+23,Bon 60',30,100,t,0
+24,Bon 90',60,150,f,0
+25,Abo 5x 30',30,237.5,t,0
+26,Abo 10x 30',30,450,f,0
+27,Abo 5x 60',60,479,f,0
+28,Abo 10x 60',60,900,t,0
+29,Abo 5x 90',90,712.5,f,0
+30,Abo 10x 90',90,1350,t,0

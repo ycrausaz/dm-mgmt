@@ -8,7 +8,8 @@ CREATE OR REPLACE VIEW public.dm_mgmt_conso_service
     concat(dm_mgmt_client.client_last_name, ' ', dm_mgmt_client.client_first_name) AS client_name,
     dm_mgmt_massage.massage_name,
     dm_mgmt_service.service_date,
-    dm_mgmt_service.service_cashed_price
+    dm_mgmt_service.service_cashed_price,
+    dm_mgmt_service.service_is_voucher
    FROM dm_mgmt_service
      JOIN dm_mgmt_massage ON dm_mgmt_massage.massage_id = dm_mgmt_service.service_massage_id_id
      JOIN dm_mgmt_client ON dm_mgmt_client.client_id = dm_mgmt_service.service_client_id_id;

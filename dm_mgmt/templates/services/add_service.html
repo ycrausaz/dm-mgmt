@@ -15,4 +15,43 @@
     <input type="submit" value="Enregistrer" class="btn btn-secondary">
   </form>
 
+    <script>
+    //https://stackoverflow.com/questions/1085801/get-selected-value-in-dropdown-list-using-javascript?page=1&tab=scoredesc#tab-top
+    
+    function updatePrice() {
+        var e = document.getElementById("id_service_massage_id");
+        var value = e.value;
+        var text = e.options[e.selectedIndex].text;
+        var text_splitted = text.split(" ");
+        var text_splitted_length = text_splitted.length;
+        var duration = text_splitted[text_splitted_length - 2];
+        var price = 0;
+        if (duration == '30') {
+            price = 60;
+        } else if (duration == '60') {
+            price = 100;
+        } else if (duration == '90') {
+            price = 140;
+        }
+        document.getElementById('id_service_cashed_price').value = price;
+        document.getElementById('id_service_cashed_price').focus();
+        document.getElementById('id_service_cashed_price').select();
+    }
+    
+    var priceBackup = document.getElementById('id_service_cashed_price').value
+
+    document.getElementById("id_service_is_voucher").addEventListener('change', function() {
+        console.log("priceBackup = " + priceBackup)
+        console.log("priceBackup2 = " + document.getElementById('id_service_cashed_price').value)
+        if (this.checked) {
+            document.getElementById('id_service_cashed_price').value = 0;
+            document.getElementById('id_service_cashed_price').disabled = true;
+        } else {
+            updatePrice();
+            document.getElementById('id_service_cashed_price').disabled = false;
+        }
+    });
+    </script>
+
+
 {% endblock %}

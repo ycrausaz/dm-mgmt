@@ -41,12 +41,16 @@ class Massage(models.Model):
     massage_duration = models.PositiveSmallIntegerField('Durée (en minutes)')
     massage_price = models.FloatField('Prix')
     massage_is_available = models.BooleanField('Massage actuellement proposé', default=False)
+    massage_order = models.PositiveSmallIntegerField('Position', default=0)
 
     def __str__(self):
         if self.massage_is_available:
             return self.massage_name + " - " + str(self.massage_duration) + " min."
         else:
             return self.massage_name + " - " + str(self.massage_duration) + " min. (pas dispo)"
+
+    class Meta:
+        ordering = ["massage_order"]
 
 
 class Service(models.Model):
@@ -57,7 +61,7 @@ class Service(models.Model):
     service_duration = models.PositiveSmallIntegerField('Durée du massage (en minutes)', blank=True, null=True)
     service_comment = models.TextField('Remarque', blank=True, null=True)
     service_cashed_price = models.FloatField('Montant encaissé (CHF)')
-    # service_cashed_price = computed_property.ComputedFloatField( compute_from='service_theorical_price')
+    service_is_voucher = models.BooleanField('Bon / abonnement', default=False)
 
     def __str__(self):
         return str(self.service_date.strftime("%d.%m.%Y")) + " : " + str(self.service_massage_id) + " => " + str(self.service_client_id)

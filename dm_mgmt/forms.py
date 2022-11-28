@@ -12,7 +12,7 @@ class MassageForm(ModelForm):
 class ServiceForm(ModelForm):
     class Meta:
         model = Service
-        fields = ['service_client_id', 'service_date', 'service_massage_id', 'service_cashed_price']
+        fields = ['service_client_id', 'service_date', 'service_massage_id', 'service_is_voucher', 'service_cashed_price']
         # labels = {
         #     'service_client_id': '',
         #     'service_massage_id': '',
@@ -28,7 +28,8 @@ class ServiceForm(ModelForm):
              'service_date': forms.TextInput(attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'jj.mm.aaaa'}),
              'service_duration': forms.NumberInput(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Durée de la prestation'}),
             'service_comment': forms.Textarea(attrs={'class':'form-control', 'rows':5}),
-             'service_cashed_price': forms.NumberInput(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Prix encaissé'}),
+            'service_cashed_price': forms.NumberInput(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Prix encaissé'}),
+            'service_is_voucher': forms.CheckboxInput(attrs={'class': 'form-check-input'})
          }
 
 class ClientForm(ModelForm):
