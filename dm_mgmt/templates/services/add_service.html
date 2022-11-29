@@ -32,10 +32,17 @@
             price = 100;
         } else if (duration == '90') {
             price = 140;
+        } else if (duration == '120') {
+            price = 200;
         }
         document.getElementById('id_service_cashed_price').value = price;
-        document.getElementById('id_service_cashed_price').focus();
-        document.getElementById('id_service_cashed_price').select();
+        if (document.getElementById('id_service_is_voucher').checked) {
+            document.getElementById('id_service_cashed_price').disable = true;
+        } else {
+            document.getElementById('id_service_cashed_price').value = price;
+            document.getElementById('id_service_cashed_price').focus();
+            document.getElementById('id_service_cashed_price').select();
+        }
     }
     
     var priceBackup = document.getElementById('id_service_cashed_price').value
@@ -44,10 +51,8 @@
         console.log("priceBackup = " + priceBackup)
         console.log("priceBackup2 = " + document.getElementById('id_service_cashed_price').value)
         if (this.checked) {
-            document.getElementById('id_service_cashed_price').value = 0;
             document.getElementById('id_service_cashed_price').disabled = true;
         } else {
-            updatePrice();
             document.getElementById('id_service_cashed_price').disabled = false;
         }
     });
