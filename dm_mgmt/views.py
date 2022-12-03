@@ -87,22 +87,8 @@ def list_services(request):
 #    return render(request, 'services/list_services.html', {'service_list': service_list})
     return render(request, 'services/list_services.html', {'services': services})
 
-#@login_required
-#def add_client(request):
-#    submitted = False
-#    if request.method == "POST":
-#        form = ClientForm(request.POST)
-#        if form.is_valid():
-#            form.save()
-#            return HttpResponseRedirect('add_client?submitted=True')
-#    else:
-#        form = ClientForm
-#        if 'submitted' in request.GET:
-#            submitted = True
-#        return render(request, 'clients/add_client.html', {'form': form, 'submitted': submitted})
 class AddClientView(CreateView):
     model = Client
-#    fields = ['client_last_name', 'client_first_name', 'client_birthdate', 'client_address',     'client_additional_address', 'client_zip_code', 'client_city', 'client_phone_number_1', 'client    _phone_number_2', 'client_email_address', 'client_comment']
     template_name = 'clients/add_client.html'
 
     def post(self, request, *args, **kwargs):
@@ -124,15 +110,20 @@ class AddClientView(CreateView):
 def add_massage(request):
     return render(request, 'tbd.html')
 
-#@login_required
-def add_service(request):
-    submitted = False
-    if request.method == "POST":
+class AddServiceView(CreateView):
+    model = Service
+    template_name = 'services/add_service.html'
+
+    def post(self, request, *args, **kwargs):
+        submitted = False
         form = ServiceForm(request.POST)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('add_service?submitted=True')
-    else:
+        return render (request, self.template_name, {'form': form, 'submitted': submitted})
+
+    def get(self, request, *args, **kwargs):
+        submitted = False
         form = ServiceForm
         if 'submitted' in request.GET:
             submitted = True
