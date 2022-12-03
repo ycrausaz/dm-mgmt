@@ -8,10 +8,45 @@
 	    Le service a été ajouté.
 	</div>
   {% endif %}
-  <form action="" method="POST" onsubmit="updateField()">
+<!--  <form action="" method="POST" onsubmit="updateField()">
     {% csrf_token %}
 
+    <label for="id_service_client_id">Client :</label>
+    <div class="form-group">
+    {{ form.service_client_id }}
+    </div><br/>
+
+    <label for="id_service_date">Date du massage :</label>
+    <div class="form-group">
+    {{ form.service_date }}
+    </div><br/>
+
+    <label for="id_service_massage_id">Massage :</label>
+    <div class="form-group">
+    {{ form.service_massage_id }}
+    </div><br/>
+
+    <div class="form-group" type="hidden">
+    {{ form.service_massage_price }}
+    <div><br/>
+
+    <label for="id_service_is_voucher">Bon / abonnement :</label>
+    <div class="form-group">
+    {{ form.service_is_voucher }}
+    </div><br/>
+
+    <label for="id_service_duration">Durée (en minutes) :</label>
+    <div class="form-group">
+    {{ form.service_duration }}
+    </div><br/>
+
+    <label for="id_service_cashed_price">Montant encaissé (CHF) :</label>
+    <div class="form-group">
+    {{ form.service_cashed_price }}
+    </div><br/>-->
+
     {{ form.as_p }}
+
     <input type="submit" value="Enregistrer" class="btn btn-secondary">
   </form>
 
@@ -19,12 +54,13 @@
     //https://stackoverflow.com/questions/1085801/get-selected-value-in-dropdown-list-using-javascript?page=1&tab=scoredesc#tab-top
     
     function updatePrice() {
-        var e = document.getElementById("id_service_massage_id");
-        var value = e.value;
-        var text = e.options[e.selectedIndex].text;
-        var text_splitted = text.split(" ");
-        var text_splitted_length = text_splitted.length;
-        var duration = text_splitted[text_splitted_length - 2];
+//        var e = document.getElementById("id_service_massage_id");
+//        var value = e.value;
+//        var text = e.options[e.selectedIndex].text;
+//        var text_splitted = text.split(" ");
+//        var text_splitted_length = text_splitted.length;
+//        var duration = text_splitted[text_splitted_length - 2];
+        var duration = document.getElementById("id_service_duration").value;
         var price = 0;
         if (duration == '30') {
             price = 60;
@@ -39,6 +75,7 @@
         if (document.getElementById('id_service_is_voucher').checked) {
             document.getElementById('id_service_cashed_price').disable = true;
         } else {
+            document.getElementById('id_service_cashed_price').disable = false;
             document.getElementById('id_service_cashed_price').value = price;
             document.getElementById('id_service_cashed_price').focus();
             document.getElementById('id_service_cashed_price').select();

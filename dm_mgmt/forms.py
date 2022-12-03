@@ -12,12 +12,21 @@ class MassageForm(ModelForm):
 class ServiceForm(ModelForm):
     class Meta:
         model = Service
-        fields = ['service_client_id', 'service_date', 'service_massage_id', 'service_is_voucher', 'service_cashed_price']
+        fields = ['service_client_id', 'service_date', 'service_massage_id', 'service_is_voucher', 'service_duration', 'service_cashed_price']
+        durations = (
+            ('', '----------'),
+            ('30', '30'),
+            ('45', '45'),
+            ('60', '60'),
+            ('90', '90'),
+            ('120', '120'),
+        )
         widgets = {
             'service_client_id': forms.Select(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Nom du client'}),
             'service_massage_id': forms.Select(attrs={'class':'form-control', 'style':'width: 300px;', 'onchange': "updatePrice();"}),#, 'placeholder':'Nom du massage'}),
             'service_date': forms.DateInput(format="%d.%m.%Y", attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'jj.mm.aaaa'}),
-             'service_duration': forms.NumberInput(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Durée de la prestation'}),
+#             'service_duration': forms.NumberInput(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Durée de la prestation'}),
+            'service_duration': forms.Select(choices=durations, attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'-----', 'onchange': "updatePrice();"}),
             'service_comment': forms.Textarea(attrs={'class':'form-control', 'rows':5}),
             'service_cashed_price': forms.NumberInput(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Prix encaissé'}),
             'service_is_voucher': forms.CheckboxInput(attrs={'class': 'form-check-input'})
