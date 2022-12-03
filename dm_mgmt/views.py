@@ -5,6 +5,8 @@ from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
+from django.views.generic.edit import CreateView
+
 # Create your views here.
 
 from .models import Client, Massage, Service, ConsoService
@@ -85,19 +87,37 @@ def list_services(request):
 #    return render(request, 'services/list_services.html', {'service_list': service_list})
     return render(request, 'services/list_services.html', {'services': services})
 
-@login_required
-def add_client(request):
-    submitted = False
-    if request.method == "POST":
+#@login_required
+#def add_client(request):
+#    submitted = False
+#    if request.method == "POST":
+#        form = ClientForm(request.POST)
+#        if form.is_valid():
+#            form.save()
+#            return HttpResponseRedirect('add_client?submitted=True')
+#    else:
+#        form = ClientForm
+#        if 'submitted' in request.GET:
+#            submitted = True
+#        return render(request, 'clients/add_client.html', {'form': form, 'submitted': submitted})
+class AddClientView(CreateView):
+    model = Client
+#    fields = ['client_last_name', 'client_first_name', 'client_birthdate', 'client_address',     'client_additional_address', 'client_zip_code', 'client_city', 'client_phone_number_1', 'client    _phone_number_2', 'client_email_address', 'client_comment']
+    template_name = 'clients/add_client.html'
+
+    def post(self, request, *args, **kwargs):
         form = ClientForm(request.POST)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('add_client?submitted=True')
-    else:
+        return render (request, self.template_name, {'form': form, 'submitted': submitted})
+
+    def get(self, request, *args, **kwargs):
         form = ClientForm
         if 'submitted' in request.GET:
             submitted = True
-    return render(request, 'clients/add_client.html', {'form': form, 'submitted': submitted})
+        return render(request, 'clients/add_client.html', {'form': form, 'submitted': submitted})
+
 
 @login_required
 def add_massage(request):
@@ -115,7 +135,7 @@ def add_service(request):
         form = ServiceForm
         if 'submitted' in request.GET:
             submitted = True
-    return render(request, 'services/add_service.html', {'form': form, 'submitted': submitted})
+        return render(request, 'services/add_service.html', {'form': form, 'submitted': submitted})
 
 @login_required
 def show_client(request, client_id):
