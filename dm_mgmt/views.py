@@ -106,6 +106,7 @@ class AddClientView(CreateView):
     template_name = 'clients/add_client.html'
 
     def post(self, request, *args, **kwargs):
+        submitted = False
         form = ClientForm(request.POST)
         if form.is_valid():
             form.save()
@@ -113,11 +114,11 @@ class AddClientView(CreateView):
         return render (request, self.template_name, {'form': form, 'submitted': submitted})
 
     def get(self, request, *args, **kwargs):
+        submitted = False
         form = ClientForm
         if 'submitted' in request.GET:
             submitted = True
         return render(request, 'clients/add_client.html', {'form': form, 'submitted': submitted})
-
 
 @login_required
 def add_massage(request):
