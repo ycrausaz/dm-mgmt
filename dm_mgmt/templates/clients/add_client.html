@@ -3,10 +3,12 @@
 {% block content %}
     <h1>Ajouter un client</h1>
     <br/>
-    {% if submitted %}
-      <div class="alert alert-success" role="alert">
-          Le client a été ajouté.
-      </div>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
     {% endif %}
     <form action="" method="POST">
       {% csrf_token %}

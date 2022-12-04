@@ -8,6 +8,8 @@ from django.contrib import messages
 from django.views.generic.edit import CreateView
 from django.views.generic import ListView
 
+from django.contrib.messages.views import SuccessMessageMixin
+
 # Create your views here.
 
 from .models import Client, Massage, Service, ConsoService
@@ -28,6 +30,7 @@ from reportlab.platypus import Paragraph, Table, TableStyle
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_CENTER 
 from reportlab.lib import colors
+import json
 
 import logging
 logging.basicConfig(level=logging.INFO)
@@ -100,59 +103,35 @@ class ListServicesView(ListView):
     template_name = 'services/list_services.html'
     context_object_name = 'services'
 
-class AddClientView(CreateView):
+class AddClientView(SuccessMessageMixin, CreateView):
     model = Client
     template_name = 'clients/add_client.html'
+    form_class = ClientForm
+    success_url = 'add_client'
+    success_message = "Le client a été ajouté."
 
-    def post(self, request, *args, **kwargs):
-        submitted = False
-        form = ClientForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('add_client?submitted=True')
-        return render (request, self.template_name, {'form': form, 'submitted': submitted})
-
-    def get(self, request, *args, **kwargs):
-        submitted = False
-        form = ClientForm
-        if 'submitted' in request.GET:
-            submitted = True
-        return render(request, 'clients/add_client.html', {'form': form, 'submitted': submitted})
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
 
 @login_required
 def add_massage(request):
     return render(request, 'tbd.html')
 
-class AddServiceView(CreateView):
+class AddServiceView(SuccessMessageMixin, CreateView):
     model = Service
     template_name = 'services/add_service.html'
+    form_class = ServiceForm
+    success_url = 'add_service'
+    success_message = "Le service a été ajouté."
 
-    def post(self, request, *args, **kwargs):
-        submitted = False
-        form = ServiceForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('add_service?submitted=True')
-        context = {
-            'form': form, 
-            'submitted': submitted,
-        }
-        return render (request, self.template_name, context)
-
-    def get(self, request, *args, **kwargs):
-        submitted = False
-        form = ServiceForm
-        if 'submitted' in request.GET:
-            submitted = True
-        context = {
-            'form': form,
-            'submitted': submitted,
-        }
-        return render(request, 'services/add_service.html', context)
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["qs_json"] = json.dump(list(Massage.objects.values()))
+        context["qs_json"] = json.dumps(list(Massage.objects.values()))
         return context
 
 @login_required
