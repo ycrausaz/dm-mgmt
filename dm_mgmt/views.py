@@ -76,6 +76,7 @@ class ListClientsView(ListView):
     model = Client
     template_name = 'clients/list_clients.html'
     context_object_name = 'clients'
+    paginate_by = 20
 
 #@login_required
 #def list_massages(request):
@@ -102,6 +103,7 @@ class ListServicesView(ListView):
     model = Service
     template_name = 'services/list_services.html'
     context_object_name = 'services'
+    paginate_by = 20
 
 class AddClientView(SuccessMessageMixin, CreateView):
     model = Client
