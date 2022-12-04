@@ -13,7 +13,7 @@
   <form action="" method="POST" onsubmit="updateField()">
     {% csrf_token %}
 
-    <label for="id_service_client_id">Client :</label>
+<!--    <label for="id_service_client_id">Client :</label>
     <div class="form-group">
     {{ form.service_client_id }}
     </div><br/>
@@ -45,9 +45,9 @@
     <label for="id_service_cashed_price">Montant encaissé (CHF) :</label>
     <div class="form-group">
     {{ form.service_cashed_price }}
-    </div><br/>
+    </div><br/>-->
 
-<!--    {{ form.as_p }}-->
+    {{ form.as_p }}
 
     <input type="submit" value="Enregistrer" class="btn btn-secondary">
   </form>
@@ -57,6 +57,11 @@
     const data = '{{qs_json}}'
     const rdata = JSON.parse(data.replace(/&quot;/g, '"'))
     console.log(rdata)
+
+    function updateIsVoucher() {
+        const massage_id = document.getElementById('id_service_massage_id').value;
+        console.log(massage_id)
+    }
 
     //https://stackoverflow.com/questions/1085801/get-selected-value-in-dropdown-list-using-javascript?page=1&tab=scoredesc#tab-top
     

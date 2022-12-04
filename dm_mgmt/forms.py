@@ -23,7 +23,7 @@ class ServiceForm(ModelForm):
         )
         widgets = {
             'service_client_id': forms.Select(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Nom du client'}),
-            'service_massage_id': forms.Select(attrs={'class':'form-control', 'style':'width: 300px;', 'onchange': "updatePrice();"}),#, 'placeholder':'Nom du massage'}),
+            'service_massage_id': forms.Select(attrs={'class':'form-control', 'style':'width: 300px;', 'onchange': "updateIsVoucher();"}),#, 'placeholder':'Nom du massage'}),
             'service_date': forms.DateInput(format="%d.%m.%Y", attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'jj.mm.aaaa'}),
 #             'service_duration': forms.NumberInput(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Durée de la prestation'}),
             'service_duration': forms.Select(choices=durations, attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'-----', 'onchange': "updatePrice();"}),
