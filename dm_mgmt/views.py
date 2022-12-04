@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 from django.views.generic.edit import CreateView
+from django.views.generic import ListView
 
 # Create your views here.
 
@@ -60,32 +61,44 @@ def home(request):
    return redirect('add-service')
 #    return render(request, 'home.html')#, context=context)
 
-@login_required
-def list_clients(request):
-#    client_list = Client.objects.all()
-    p = Paginator(Client.objects.all(), 20)
-    page = request.GET.get('page')
-    clients = p.get_page(page)
-#    return render(request, 'clients/list_clients.html', {'client_list': client_list})
-    return render(request, 'clients/list_clients.html', {'clients': clients})
+#@login_required
+#def list_clients(request):
+##    client_list = Client.objects.all()
+#    p = Paginator(Client.objects.all(), 20)
+#    page = request.GET.get('page')
+#    clients = p.get_page(page)
+##    return render(request, 'clients/list_clients.html', {'client_list': client_list})
+#    return render(request, 'clients/list_clients.html', {'clients': clients})
+class ListClientsView(ListView):
+    model = Client
+    template_name = 'clients/list_clients.html'
+    context_object_name = 'clients'
 
-@login_required
-def list_massages(request):
-#    massage_list = Massage.objects.all()
-    p = Paginator(Massage.objects.all(), 20)
-    page = request.GET.get('page')
-    massages = p.get_page(page)
-#    return render(request, 'massages/list_massages.html', {'massage_list': massage_list})
-    return render(request, 'massages/list_massages.html', {'massages': massages})
+#@login_required
+#def list_massages(request):
+##    massage_list = Massage.objects.all()
+#    p = Paginator(Massage.objects.all(), 20)
+#    page = request.GET.get('page')
+#    massages = p.get_page(page)
+##    return render(request, 'massages/list_massages.html', {'massage_list': massage_list})
+#    return render(request, 'massages/list_massages.html', {'massages': massages})
+class ListMassagesView(ListView):
+    model = Massage
+    template_name = 'massages/list_massages.html'
+    context_object_name = 'massages'
 
-@login_required
-def list_services(request):
-#    service_list = Service.objects.all()
-    p = Paginator(Service.objects.all(), 20)
-    page = request.GET.get('page')
-    services = p.get_page(page)
-#    return render(request, 'services/list_services.html', {'service_list': service_list})
-    return render(request, 'services/list_services.html', {'services': services})
+#@login_required
+#def list_services(request):
+##    service_list = Service.objects.all()
+#    p = Paginator(Service.objects.all(), 20)
+#    page = request.GET.get('page')
+#    services = p.get_page(page)
+##    return render(request, 'services/list_services.html', {'service_list': service_list})
+#    return render(request, 'services/list_services.html', {'services': services})
+class ListServicesView(ListView):
+    model = Service
+    template_name = 'services/list_services.html'
+    context_object_name = 'services'
 
 class AddClientView(CreateView):
     model = Client
@@ -120,14 +133,27 @@ class AddServiceView(CreateView):
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('add_service?submitted=True')
-        return render (request, self.template_name, {'form': form, 'submitted': submitted})
+        context = {
+            'form': form, 
+            'submitted': submitted,
+        }
+        return render (request, self.template_name, context)
 
     def get(self, request, *args, **kwargs):
         submitted = False
         form = ServiceForm
         if 'submitted' in request.GET:
             submitted = True
-        return render(request, 'services/add_service.html', {'form': form, 'submitted': submitted})
+        context = {
+            'form': form,
+            'submitted': submitted,
+        }
+        return render(request, 'services/add_service.html', context)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["qs_json"] = json.dump(list(Massage.objects.values()))
+        return context
 
 @login_required
 def show_client(request, client_id):

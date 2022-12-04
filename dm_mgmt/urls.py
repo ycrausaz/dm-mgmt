@@ -2,7 +2,7 @@ from django.views.i18n import JavaScriptCatalog
 from django.urls import include
 from django.urls import path
 from . import views
-from .views import AddClientView, AddServiceView
+from .views import AddClientView, AddServiceView, ListServicesView, ListMassagesView, ListClientsView
 from django.contrib.auth.decorators import login_required
 
 # urlpatterns += [
@@ -11,9 +11,12 @@ from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('list_clients', views.list_clients, name='list-clients'),
-    path('list_massages', views.list_massages, name='list-massages'),
-    path('list_services', views.list_services, name='list-services'),
+#    path('list_clients', views.list_clients, name='list-clients'),
+    path('list_clients', login_required(ListClientsView.as_view()), name='list-clients'),
+#    path('list_massages', views.list_massages, name='list-massages'),
+    path('list_massages', login_required(ListMassagesView.as_view()), name='list-massages'),
+#    path('list_services', views.list_services, name='list-services'),
+    path('list_services', login_required(ListServicesView.as_view()), name='list-services'),
 #    path('add_client', views.add_client, name='add-client'),
     path('add_client', login_required(AddClientView.as_view()), name='add-client'),
     path('add_massage', views.add_massage, name='add-massage'),
