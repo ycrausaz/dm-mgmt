@@ -7,7 +7,13 @@
   {% for massage in massages %}
     <tr>
       <td>
-        {{ massage }}
+        {{ massage.massage_name }}
+      </td>
+      <td>
+        {{ massage.massage_duration }}'
+      </td>
+      <td>
+        CHF {{ massage.massage_price|floatformat:2 }}
       </td>
     </tr>
   {% endfor %}
