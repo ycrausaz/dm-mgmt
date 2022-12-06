@@ -57,7 +57,7 @@
     const data_massage_is_voucher = '{{json_massage_is_voucher}}'
     const data_massage_price = '{{json_massage_price}}'
     const rdata_massage_is_voucher = JSON.parse(data_massage_is_voucher.replace(/&quot;/g, '"'))
-    const rdata_massage_price = JSON.stringify(JSON.parse(data_massage_price.replace(/&quot;/g, '"')))
+    const rdata_massage_price = JSON.parse(data_massage_price.replace(/&quot;/g, '"'))
 
     function download(content, fileName, contentType) {
         var a = document.createElement("a");
@@ -73,7 +73,7 @@
             const loc_key = parseInt(splitted[0]);
             const loc_value = splitted[1];
             if (String(loc_key) === String(theKey)) {
-                return (loc_value === 'true');
+                return loc_value;
             }
         }
         return false;
@@ -85,22 +85,21 @@
 //        download(data_massage_is_voucher, 'data_massage_is_voucher.json', 'text/plain')
 //        download(rdata_massage_is_voucher, 'rdata_massage_is_voucher.json', 'text/plain')
 //        console.log(getValueFromKey(rdata_massage_is_voucher, massage_id))
-        if (getValueFromKey(rdata_massage_is_voucher, massage_id)) {
+        if (getValueFromKey(rdata_massage_is_voucher, massage_id) === 'true') {
             document.getElementById('id_service_is_voucher').disabled = true;
-            document.getElementById('id_service_duration').disabled = true;
+//            document.getElementById('id_service_is_voucher').removeAttribute('required');
         } else {
             document.getElementById('id_service_is_voucher').disabled = false;
-            document.getElementById('id_service_duration').disabled = false;
+//            document.getElementById('id_service_is_voucher').setAttribute('required', '');
         }
 //        console.log(document.getElementById('id_service_is_voucher').disabled)
     }
 
-    //https://stackoverflow.com/questions/1085801/get-selected-value-in-dropdown-list-using-javascript?page=1&tab=scoredesc#tab-top
-    
     function updatePrice() {
         var price = 0;
         const massage_id = document.getElementById('id_service_massage_id').value;
-        price = rdata_massage_price[massage_id][1];
+        price = getValueFromKey(rdata_massage_price, massage_id);
+        console.log("price = " + price);
         document.getElementById('id_service_cashed_price').value = price;
         if (document.getElementById('id_service_is_voucher').checked) {
             document.getElementById('id_service_cashed_price').disabled = true;
@@ -112,8 +111,6 @@
         }
     }
     
-//    var priceBackup = document.getElementById('id_service_cashed_price').value
-
     document.getElementById("id_service_is_voucher").addEventListener('change', function() {
         var priceBackup = document.getElementById('id_service_cashed_price').value
         console.log("priceBackup = " + priceBackup)

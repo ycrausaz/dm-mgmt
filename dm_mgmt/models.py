@@ -45,7 +45,7 @@ class Massage(models.Model):
     massage_order = models.PositiveSmallIntegerField('Position', default=0)
 
     def __str__(self):
-        return self.massage_name
+        return self.massage_name + " - " + str(self.massage_duration) + "’"
 #        if self.massage_is_available:
 #            return self.massage_name + " - " + str(self.massage_duration) + " min."
 #        else:
