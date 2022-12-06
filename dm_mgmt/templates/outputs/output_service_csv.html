@@ -8,36 +8,4 @@
         {{ form.as_p }}
         <input type="submit" value="Export" class="btn btn-secondary">
     </form>
-
-<script>
-
-$(document).ready(function() {
-    $("#id_min_date").datepicker({
-        changeMonth:true,
-        changeYear:true,
-        dateFormat:"dd.mm.yy",
-//        showButtonPanel: true
-    });
-    $("#id_max_date").datepicker({
-        changeMonth:true,
-        changeYear:true,
-        dateFormat:"dd.mm.yy",
-//        showButtonPanel: true
-    });
-    $("#id_service_date").datepicker({
-        changeMonth:true,
-        changeYear:true,
-        dateFormat:"dd.mm.yy",
-//        showButtonPanel: true
-    });
-    $("#id_client_birthdate").datepicker({
-        changeMonth:true,
-        changeYear:true,
-        dateFormat:"dd.mm.yy",
-//        showButtonPanel: true
-    });
-});
-
-</script>
-
 {% endblock %}
