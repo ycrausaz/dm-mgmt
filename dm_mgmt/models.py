@@ -64,7 +64,7 @@ class Service(models.Model):
     service_comment = models.TextField('Remarque', blank=True, null=True)
 #    service_cashed_price = models.FloatField('Montant encaissé (CHF)')
     service_cashed_price = models.DecimalField('Montant encaissé (CHF)', max_digits=5, decimal_places=2)
-    service_is_voucher = models.BooleanField('Bon / abonnement', default=False)
+    service_is_voucher = models.BooleanField('Bon / abonnement', blank=True, default=False)
 
     def __str__(self):
         return str(self.service_date.strftime("%d.%m.%Y")) + " : " + str(self.service_massage_id) + " => " + str(self.service_client_id)
