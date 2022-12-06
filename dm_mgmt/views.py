@@ -133,7 +133,8 @@ class AddServiceView(SuccessMessageMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["qs_json"] = json.dumps(list(Massage.objects.values()))
+        context["json_massage_is_voucher"] = json.dumps(list(Massage.objects.values_list('massage_id', 'massage_is_voucher')))
+        context["json_massage_price"] = json.dumps(list(Massage.objects.values_list('massage_id', 'massage_price')))
         return context
 
 @login_required

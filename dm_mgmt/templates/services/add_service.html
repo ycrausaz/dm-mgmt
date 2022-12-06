@@ -54,49 +54,68 @@
 
     <script>
 
-    const data = '{{qs_json}}'
-    const rdata = JSON.parse(data.replace(/&quot;/g, '"'))
-    console.log(rdata)
+    const data_massage_is_voucher = '{{json_massage_is_voucher}}'
+    const data_massage_price = '{{json_massage_price}}'
+    const rdata_massage_is_voucher = JSON.parse(data_massage_is_voucher.replace(/&quot;/g, '"'))
+    const rdata_massage_price = JSON.stringify(JSON.parse(data_massage_price.replace(/&quot;/g, '"')))
+
+    function download(content, fileName, contentType) {
+        var a = document.createElement("a");
+        var file = new Blob([content], {type: contentType});
+        a.href = URL.createObjectURL(file);
+        a.download = fileName;
+        a.click();
+    }
+
+    function getValueFromKey(data, theKey) {
+        for (const [key, value] of Object.entries(data)) {
+            const splitted = String(value).split(",");
+            const loc_key = parseInt(splitted[0]);
+            const loc_value = splitted[1];
+            if (String(loc_key) === String(theKey)) {
+                return (loc_value === 'true');
+            }
+        }
+        return false;
+    }
 
     function updateIsVoucher() {
         const massage_id = document.getElementById('id_service_massage_id').value;
-        console.log(massage_id)
+//        console.log(massage_id)
+//        download(data_massage_is_voucher, 'data_massage_is_voucher.json', 'text/plain')
+//        download(rdata_massage_is_voucher, 'rdata_massage_is_voucher.json', 'text/plain')
+//        console.log(getValueFromKey(rdata_massage_is_voucher, massage_id))
+        if (getValueFromKey(rdata_massage_is_voucher, massage_id)) {
+            document.getElementById('id_service_is_voucher').disabled = true;
+            document.getElementById('id_service_duration').disabled = true;
+        } else {
+            document.getElementById('id_service_is_voucher').disabled = false;
+            document.getElementById('id_service_duration').disabled = false;
+        }
+//        console.log(document.getElementById('id_service_is_voucher').disabled)
     }
 
     //https://stackoverflow.com/questions/1085801/get-selected-value-in-dropdown-list-using-javascript?page=1&tab=scoredesc#tab-top
     
     function updatePrice() {
-//        var e = document.getElementById("id_service_massage_id");
-//        var value = e.value;
-//        var text = e.options[e.selectedIndex].text;
-//        var text_splitted = text.split(" ");
-//        var text_splitted_length = text_splitted.length;
-//        var duration = text_splitted[text_splitted_length - 2];
-        var duration = document.getElementById("id_service_duration").value;
         var price = 0;
-        if (duration == '30') {
-            price = 60;
-        } else if (duration == '60') {
-            price = 100;
-        } else if (duration == '90') {
-            price = 140;
-        } else if (duration == '120') {
-            price = 200;
-        }
+        const massage_id = document.getElementById('id_service_massage_id').value;
+        price = rdata_massage_price[massage_id][1];
         document.getElementById('id_service_cashed_price').value = price;
         if (document.getElementById('id_service_is_voucher').checked) {
-            document.getElementById('id_service_cashed_price').disable = true;
+            document.getElementById('id_service_cashed_price').disabled = true;
         } else {
-            document.getElementById('id_service_cashed_price').disable = false;
+            document.getElementById('id_service_cashed_price').disabled = false;
             document.getElementById('id_service_cashed_price').value = price;
             document.getElementById('id_service_cashed_price').focus();
             document.getElementById('id_service_cashed_price').select();
         }
     }
     
-    var priceBackup = document.getElementById('id_service_cashed_price').value
+//    var priceBackup = document.getElementById('id_service_cashed_price').value
 
     document.getElementById("id_service_is_voucher").addEventListener('change', function() {
+        var priceBackup = document.getElementById('id_service_cashed_price').value
         console.log("priceBackup = " + priceBackup)
         console.log("priceBackup2 = " + document.getElementById('id_service_cashed_price').value)
         if (this.checked) {
