@@ -79,6 +79,12 @@
         return false;
     }
 
+    // fired from dropdown 'Massage'
+    function updateMassageInfo() {
+        updateIsVoucher();
+        updatePrice();
+    }
+
     function updateIsVoucher() {
         const massage_id = document.getElementById('id_service_massage_id').value;
 //        console.log(massage_id)
