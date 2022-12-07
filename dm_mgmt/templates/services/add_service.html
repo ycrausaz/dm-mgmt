@@ -58,6 +58,7 @@
 //        download(rdata_massage_is_voucher, 'rdata_massage_is_voucher.json', 'text/plain')
 //        console.log(getValueFromKey(rdata_massage_is_voucher, massage_id))
         if (getValueFromKey(rdata_massage_is_voucher, massage_id) === 'true') {
+            document.getElementById('id_service_is_voucher').checked = false;
             document.getElementById('id_service_is_voucher').disabled = true;
 //            document.getElementById('id_service_is_voucher').removeAttribute('required');
         } else {
