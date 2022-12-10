@@ -21,6 +21,7 @@ class Client(models.Model):
     client_phone_number_2 = models.CharField('Téléphone 2', max_length=30, null=True, blank=True)#, help_text="Format : +xx xx xxx xx xx (Exemple : +41 79 123 45 67)")
     client_email_address = models.EmailField('E-mail', null=True, blank=True)
     client_comment = models.TextField('Commentaire', null=True, blank=True)
+    client_is_displayed = models.BooleanField('Client à prendre en compte', default=True)
 
     def __str__(self):
         return self.client_last_name + " " + self.client_first_name  + " (" + str(self.client_birthdate.strftime("%d.%m.%Y")) + ")"
@@ -57,7 +58,7 @@ class Massage(models.Model):
 
 class Service(models.Model):
     service_id = models.AutoField(primary_key=True, unique=True)
-    service_client_id = models.ForeignKey(Client, null=True, on_delete=models.DO_NOTHING, verbose_name="Client")
+    service_client_id = models.ForeignKey(Client, null=True, on_delete=models.DO_NOTHING, verbose_name="Client", limit_choices_to={'client_is_displayed': True})
     service_massage_id = models.ForeignKey(Massage, null=True, on_delete=models.DO_NOTHING, verbose_name="Massage", limit_choices_to={'massage_is_available': True})
     service_date = models.DateField('Date du massage')
     service_duration = models.PositiveSmallIntegerField('Durée du massage (en minutes)', blank=False, null=False, default=0)
