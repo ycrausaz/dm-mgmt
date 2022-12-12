@@ -64,41 +64,17 @@ def home(request):
    return redirect('add-service')
 #    return render(request, 'home.html')#, context=context)
 
-#@login_required
-#def list_clients(request):
-##    client_list = Client.objects.all()
-#    p = Paginator(Client.objects.all(), 20)
-#    page = request.GET.get('page')
-#    clients = p.get_page(page)
-##    return render(request, 'clients/list_clients.html', {'client_list': client_list})
-#    return render(request, 'clients/list_clients.html', {'clients': clients})
 class ListClientsView(ListView):
     model = Client
     template_name = 'clients/list_clients.html'
     context_object_name = 'clients'
     paginate_by = 20
 
-#@login_required
-#def list_massages(request):
-##    massage_list = Massage.objects.all()
-#    p = Paginator(Massage.objects.all(), 20)
-#    page = request.GET.get('page')
-#    massages = p.get_page(page)
-##    return render(request, 'massages/list_massages.html', {'massage_list': massage_list})
-#    return render(request, 'massages/list_massages.html', {'massages': massages})
 class ListMassagesView(ListView):
     model = Massage
     template_name = 'massages/list_massages.html'
     context_object_name = 'massages'
 
-#@login_required
-#def list_services(request):
-##    service_list = Service.objects.all()
-#    p = Paginator(Service.objects.all(), 20)
-#    page = request.GET.get('page')
-#    services = p.get_page(page)
-##    return render(request, 'services/list_services.html', {'service_list': service_list})
-#    return render(request, 'services/list_services.html', {'services': services})
 class ListServicesView(ListView):
     model = Service
     template_name = 'services/list_services.html'
@@ -148,12 +124,6 @@ class DeleteServiceView(SuccessMessageMixin, DeleteView):
         print("form_valid!!!!!!!")
         return super(DeleteServiceView, self).delete(request, *args, **kwargs)
 
-#@login_required
-#def show_client(request, client_id):
-#    client = Client.objects.get(pk=client_id)
-#    form = ClientForm(request.POST or None, instance=client)
-#    conso_service = ConsoService.objects.filter(client_id__exact=client_id)
-#    return render(request, 'clients/show_client.html', {'client': client, 'form': form, 'massages': conso_service})
 class ShowClientView(DetailView):
     model = Client
     template_name = 'clients/show_client.html'
@@ -172,14 +142,6 @@ class ShowServiceView(DetailView):
     template_name = 'services/show_service.html'
     form_class = ServiceForm
 
-#@login_required
-#def update_client(request, client_id):
-#    client = Client.objects.get(pk=client_id)
-#    form = ClientForm(request.POST or None, instance=client)
-#    if form.is_valid():
-#        form.save()
-#        return redirect('list-clients')
-#    return render(request, 'clients/update_client.html', {'client': client, 'form': form})
 class UpdateClientView (SuccessMessageMixin, UpdateView):
     model = Client
     template_name = 'clients/update_client.html'
@@ -187,14 +149,6 @@ class UpdateClientView (SuccessMessageMixin, UpdateView):
     success_url = 'list_clients'
     success_message = 'Les informations du client ont été mises à jour avec succès.'
 
-#@login_required
-#def update_service(request, service_id):
-#    service = Service.objects.get(pk=service_id)
-#    form = ServiceForm(request.POST or None, instance=service)
-#    if form.is_valid():
-#        form.save()
-#        return redirect('list-services')
-#    return render(request, 'services/update_service.html', {'service': service, 'form': form})
 class UpdateServiceView (SuccessMessageMixin, UpdateView):
     model = Service
     template_name = 'services/update_service.html'

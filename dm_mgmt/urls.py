@@ -22,8 +22,7 @@ urlpatterns = [
     path('show_service/<int:pk>', login_required(ShowServiceView.as_view()), name='show-service'),
     path('update_client/<int:pk>', login_required(UpdateClientView.as_view()), name='update-client'),
     path('update_service/<int:pk>', login_required(UpdateServiceView.as_view()), name='update-service'),
-#    path('update_client/<int:client_id>', views.update_client, name='update-client'),
-#    path('update_service/<int:service_id>', views.update_service, name='update-service'),
+
     path('output_client_csv', views.output_client_csv, name='output-client-csv'),
     path('output_client_pdf', views.output_client_pdf, name='output-client-pdf'),
     path('output_service_csv', views.output_service_csv, name='output-service-csv'),
