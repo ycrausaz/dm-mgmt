@@ -159,6 +159,14 @@ class ShowClientView(DetailView):
     template_name = 'clients/show_client.html'
     form_class = ClientForm
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        client = Client.objects.get(pk=self.kwargs['pk'])
+        conso_service = ConsoService.objects.filter(client_id__exact=client.client_id)
+        context['client'] = client
+        context['massages'] = conso_service
+        return context
+
 class ShowServiceView(DetailView):
     model = Service
     template_name = 'services/show_service.html'
