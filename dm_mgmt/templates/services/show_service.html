@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>{{ service.service_massage_id }} => {{ service.service_client_id }}</h1>
+    <br/>
+    <label for="service_client_id">Client :</label>
+    <div class="form-control" name="service_client_id" style="width: 300px;">{{ service.service_client_id }}</div><br/>
+    <label for="service_massage_id">Prestation :</label>
+    <div class="form-control" name="service_massage_id" style="width: 300px;">{{ service.service_massage_id }}</div><br/>
+    <label for="service_date">Date :</label>
+    <div class="form-control" name="service_date" style="width: 300px;">{{ service.service_date|date:'d.m.Y' }}</div><br/>
+    <label for="service_is_voucher">Bon / abo :</label>
+    <div class="form-control" name="service_is_voucher" style="width: 300px;">{{ service.service_is_voucher }}</div><br/>
+    <label for="service_cashed_price">Montant encaissé (CHF) :</label>
+    <div class="form-control" name="service_cashed_price" style="width: 300px;">{{ service.service_cashed_price }}</div><br/>
+{#    {{ form.as_p }} #}
+{% endblock %}

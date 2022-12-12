@@ -1,0 +1,11 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Supprimer une prestation</h1>
+  <br/>
+   <form method=POST>
+     {% csrf_token %}
+     <input type="submit" value="Supprimer" class="btn btn-primary">
+     <a href="{% url 'list-services'%}" class="btn btn-secondary">Annuler</a>
+   </form>
+{% endblock %}

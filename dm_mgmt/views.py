@@ -5,8 +5,8 @@ from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
-from django.views.generic.edit import CreateView
-from django.views.generic import ListView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic import ListView, DetailView
 
 from django.contrib.messages.views import SuccessMessageMixin
 
@@ -109,8 +109,8 @@ class AddClientView(SuccessMessageMixin, CreateView):
     model = Client
     template_name = 'clients/add_client.html'
     form_class = ClientForm
-    success_url = 'add_client'
-    success_message = "Le client a été ajouté."
+    success_url = 'list_clients'
+    success_message = "Le client a été ajouté avec succès."
 
     def form_valid(self, form):
         form.save()
@@ -125,7 +125,7 @@ class AddServiceView(SuccessMessageMixin, CreateView):
     template_name = 'services/add_service.html'
     form_class = ServiceForm
     success_url = 'add_service'
-    success_message = "Le service a été ajouté."
+    success_message = "Le service a été ajouté avec succès."
 
     def form_valid(self, form):
         form.save()
@@ -137,30 +137,62 @@ class AddServiceView(SuccessMessageMixin, CreateView):
         context["json_massage_price"] = json.dumps(list(Massage.objects.values_list('massage_id', 'massage_price')))
         return context
 
-@login_required
-def show_client(request, client_id):
-    client = Client.objects.get(pk=client_id)
-    form = ClientForm(request.POST or None, instance=client)
-    conso_service = ConsoService.objects.filter(client_id__exact=client_id)
-    return render(request, 'clients/show_client.html', {'client': client, 'form': form, 'massages': conso_service})
+class DeleteServiceView(SuccessMessageMixin, DeleteView):
+    model = Service
+    template_name = 'services/delete_service.html'
+    form_class = ServiceForm
+    success_url = '../list_services'
+    success_message = "Le service a été supprimé avec succès."
 
-@login_required
-def update_client(request, client_id):
-    client = Client.objects.get(pk=client_id)
-    form = ClientForm(request.POST or None, instance=client)
-    if form.is_valid():
-        form.save()
-        return redirect('list-clients')
-    return render(request, 'clients/update_client.html', {'client': client, 'form': form})
+    def form_valid(self, form):
+        print("form_valid!!!!!!!")
+        return super(DeleteServiceView, self).delete(request, *args, **kwargs)
 
-@login_required
-def update_service(request, service_id):
-    service = Service.objects.get(pk=service_id)
-    form = ServiceForm(request.POST or None, instance=service)
-    if form.is_valid():
-        form.save()
-        return redirect('list-services')
-    return render(request, 'services/update_service.html', {'service': service, 'form': form})
+#@login_required
+#def show_client(request, client_id):
+#    client = Client.objects.get(pk=client_id)
+#    form = ClientForm(request.POST or None, instance=client)
+#    conso_service = ConsoService.objects.filter(client_id__exact=client_id)
+#    return render(request, 'clients/show_client.html', {'client': client, 'form': form, 'massages': conso_service})
+class ShowClientView(DetailView):
+    model = Client
+    template_name = 'clients/show_client.html'
+    form_class = ClientForm
+
+class ShowServiceView(DetailView):
+    model = Service
+    template_name = 'services/show_service.html'
+    form_class = ServiceForm
+
+#@login_required
+#def update_client(request, client_id):
+#    client = Client.objects.get(pk=client_id)
+#    form = ClientForm(request.POST or None, instance=client)
+#    if form.is_valid():
+#        form.save()
+#        return redirect('list-clients')
+#    return render(request, 'clients/update_client.html', {'client': client, 'form': form})
+class UpdateClientView (SuccessMessageMixin, UpdateView):
+    model = Client
+    template_name = 'clients/update_client.html'
+    form_class = ClientForm
+    success_url = 'list_clients'
+    success_message = 'Les informations du client ont été mises à jour avec succès.'
+
+#@login_required
+#def update_service(request, service_id):
+#    service = Service.objects.get(pk=service_id)
+#    form = ServiceForm(request.POST or None, instance=service)
+#    if form.is_valid():
+#        form.save()
+#        return redirect('list-services')
+#    return render(request, 'services/update_service.html', {'service': service, 'form': form})
+class UpdateServiceView (SuccessMessageMixin, UpdateView):
+    model = Service
+    template_name = 'services/update_service.html'
+    form_class = ServiceForm
+    success_url = 'list_services'
+    success_message = 'Les informations du service on été mises à jour avec succès.'
 
 def login_user(request):
     if request.method == "POST":

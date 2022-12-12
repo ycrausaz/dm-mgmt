@@ -2,7 +2,14 @@
 
 {% block content %}
 <h1>Liste des prestation</h1>
-<br/>
+    <br/>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
 <table class="table table-striped table-hover">
   {% for service in services %}
     <tr>
@@ -10,7 +17,13 @@
         {{ service }}
       </td>
       <td>
+          <a href="{% url 'show-service' service.service_id %}">Consulter</a><br/>
+      </td>
+      <td>
           <a href="{% url 'update-service' service.service_id %}">Modifier</a><br/>
+      </td>
+      <td>
+          <a href="{% url 'delete-service' service.service_id %}">Supprimer</a><br/>
       </td>
     </tr>
   {% endfor %}
