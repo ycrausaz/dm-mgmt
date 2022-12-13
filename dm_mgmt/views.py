@@ -92,6 +92,10 @@ class AddClientView(SuccessMessageMixin, CreateView):
         form.save()
         return super().form_valid(form)
 
+    def get_success_message(self, cleaned_data):
+        client_str = self.object.client_last_name + ' ' + self.object.client_first_name
+        return 'L\'ajout de "' + client_str + '" a été réalisé avec succès.'
+
 @login_required
 def add_massage(request):
     return render(request, 'tbd.html')
@@ -119,10 +123,6 @@ class DeleteServiceView(SuccessMessageMixin, DeleteView):
     form_class = ServiceForm
     success_url = '../list_services'
     success_message = "Le service a été supprimé avec succès."
-
-    def form_valid(self, form):
-        print("form_valid!!!!!!!")
-        return super(DeleteServiceView, self).delete(request, *args, **kwargs)
 
 class ShowClientView(DetailView):
     model = Client
