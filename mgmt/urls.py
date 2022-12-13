@@ -24,7 +24,6 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-#    path('db-mgmt/', include('db_mgmt.urls')),
     path('dm-mgmt/', include('dm_mgmt.urls')),
 ]
 
