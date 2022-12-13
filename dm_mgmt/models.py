@@ -68,7 +68,7 @@ class Service(models.Model):
     service_is_voucher = models.BooleanField('Bon / abonnement', blank=True, default=False)
 
     def __str__(self):
-        return str(self.service_date.strftime("%d.%m.%Y")) + " : " + str(self.service_massage_id) + " => " + str(self.service_client_id)
+        return str(self.service_date.strftime("%d.%m.%Y")) + " : " + str(self.service_client_id) + " => " + str(self.service_massage_id)
 
     def save(self, *args, **kwargs):
         print("Save 'Service': " + str(self.service_client_id) + ", " + str(self.service_massage_id))

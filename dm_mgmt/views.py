@@ -117,6 +117,9 @@ class AddServiceView(SuccessMessageMixin, CreateView):
         context["json_massage_price"] = json.dumps(list(Massage.objects.values_list('massage_id', 'massage_price')))
         return context
 
+    def get_success_message(self, cleaned_data):
+        return 'L\'ajout de "' + str(self.object.service_client_id) + ' => ' + str(self.object.service_massage_id) + '" a été réalisé avec succès.'
+
 class DeleteServiceView(SuccessMessageMixin, DeleteView):
     model = Service
     template_name = 'services/delete_service.html'
