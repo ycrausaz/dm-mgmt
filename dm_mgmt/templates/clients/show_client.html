@@ -26,7 +26,8 @@
     <label for="client_comment">Commentaire :
     <div class="form-control" name="client_comment" style="width: 300px;">{{ client.client_comment }}</div><br/>
 {#    {{ form.as_p }} #}
-<a href="{% url 'list-clients' %}" id="cancel" name="cancel" class="btn btn-primary">Retour</a>
+<a href="{% url 'update-client' client.client_id %}" id="edit" name="edit" class="btn btn-primary">Modifier les informations</a>
+<a href="{% url 'list-clients' %}" id="cancel" name="cancel" class="btn btn-secondary">Retour</a>
 <br/>
 <br/>
 {% if massages|length > 0 %}

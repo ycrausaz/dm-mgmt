@@ -14,5 +14,6 @@
     <label for="service_cashed_price">Montant encaissé (CHF) :</label>
     <div class="form-control" name="service_cashed_price" style="width: 300px;">{{ service.service_cashed_price }}</div><br/>
 {#    {{ form.as_p }} #}
-<a href="{% url 'list-services' %}" id="cancel" name="cancel" class="btn btn-primary">Retour</a>
+<a href="{% url 'update-service' service.service_id %}" id="edit" name="edit" class="btn btn-primary">Modifier les informations</a>
+<a href="{% url 'list-services' %}" id="cancel" name="cancel" class="btn btn-secondary">Retour</a>
 {% endblock %}
