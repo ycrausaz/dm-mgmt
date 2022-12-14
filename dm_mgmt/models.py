@@ -26,9 +26,9 @@ class Client(models.Model):
     def __str__(self):
         return self.client_last_name + " " + self.client_first_name  + " (" + str(self.client_birthdate.strftime("%d.%m.%Y")) + ")"
 
-    def save(self, *args, **kwargs):
-        print("Save 'Client'")
-        super(Client, self).save(*args, **kwargs)
+#    def save(self, *args, **kwargs):
+#        print("Save 'Client'")
+#        super(Client, self).save(*args, **kwargs)
 
 
     class Meta:
@@ -70,9 +70,9 @@ class Service(models.Model):
     def __str__(self):
         return str(self.service_date.strftime("%d.%m.%Y")) + " : " + str(self.service_client_id) + " => " + str(self.service_massage_id)
 
-    def save(self, *args, **kwargs):
-        print("Save 'Service': " + str(self.service_client_id) + ", " + str(self.service_massage_id))
-        super(Service, self).save(*args, **kwargs)
+#    def save(self, *args, **kwargs):
+#        print("Save 'Service': " + str(self.service_client_id) + ", " + str(self.service_massage_id))
+#        super(Service, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ["-service_date"]
