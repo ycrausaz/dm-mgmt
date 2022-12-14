@@ -10,6 +10,8 @@ from django.views.generic import ListView, DetailView
 
 from django.contrib.messages.views import SuccessMessageMixin
 
+from django.urls import reverse_lazy
+
 # Create your views here.
 
 from .models import Client, Massage, Service, ConsoService
@@ -85,7 +87,7 @@ class AddClientView(SuccessMessageMixin, CreateView):
     model = Client
     template_name = 'clients/add_client.html'
     form_class = ClientForm
-    success_url = 'list_clients'
+    success_url = reverse_lazy('list-clients')
     success_message = "Le client a été ajouté avec succès."
 
     def form_valid(self, form):
@@ -104,7 +106,7 @@ class AddServiceView(SuccessMessageMixin, CreateView):
     model = Service
     template_name = 'services/add_service.html'
     form_class = ServiceForm
-    success_url = 'add_service'
+    success_url = reverse_lazy('add-service')
     success_message = "Le service a été ajouté avec succès."
 
     def form_valid(self, form):
@@ -124,7 +126,7 @@ class DeleteServiceView(SuccessMessageMixin, DeleteView):
     model = Service
     template_name = 'services/delete_service.html'
     form_class = ServiceForm
-    success_url = '../list_services'
+    success_url = reverse_lazy('list-services')
     success_message = "Le service a été supprimé avec succès."
 
 class ShowClientView(DetailView):
@@ -149,14 +151,14 @@ class UpdateClientView (SuccessMessageMixin, UpdateView):
     model = Client
     template_name = 'clients/update_client.html'
     form_class = ClientForm
-    success_url = 'list_clients'
+    success_url = reverse_lazy('list-clients')
     success_message = 'Les informations du client ont été mises à jour avec succès.'
 
 class UpdateServiceView (SuccessMessageMixin, UpdateView):
     model = Service
     template_name = 'services/update_service.html'
     form_class = ServiceForm
-    success_url = 'list_services'
+    success_url = reverse_lazy('list-services')
     success_message = 'Les informations du service on été mises à jour avec succès.'
 
 def login_user(request):
