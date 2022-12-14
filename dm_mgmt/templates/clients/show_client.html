@@ -26,6 +26,8 @@
     <label for="client_comment">Commentaire :
     <div class="form-control" name="client_comment" style="width: 300px;">{{ client.client_comment }}</div><br/>
 {#    {{ form.as_p }} #}
+<a href="{% url 'list-clients' %}" id="cancel" name="cancel" class="btn btn-primary">Retour</a>
+<br/>
 <br/>
 {% if massages|length > 0 %}
 <h3>Historique :</h3><br/>

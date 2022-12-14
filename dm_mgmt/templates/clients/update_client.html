@@ -64,7 +64,8 @@
         <div class="form-group">
         {{ form.client_comment }}
         </div><br/>
-      <input type="submit" value="Mettre à jour" class="btn btn-secondary">
+      <input type="submit" value="Mettre à jour" class="btn btn-primary">
+      <a href="{% url 'list-clients' %}" id="cancel" name="cancel" class="btn btn-secondary">Retour</a>
     </form>
     
 {% endblock %}
