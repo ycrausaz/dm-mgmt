@@ -1,7 +1,11 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Supprimer une prestation</h1>
+  <h1>Supprimer la prestation</h1>
+  <br/>
+  Suppression de '<i>{{ service }}</i>' ?<br/>
+  <small><u>Attention:</u> Une prestation supprimée ne pourra pas être récupérée</small>
+  <br/>
   <br/>
    <form action="" method="POST">
      {% csrf_token %}

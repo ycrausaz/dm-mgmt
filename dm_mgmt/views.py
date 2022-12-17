@@ -123,11 +123,27 @@ class AddServiceView(SuccessMessageMixin, CreateView):
         return 'L\'ajout de "' + str(self.object.service_client_id) + ' => ' + str(self.object.service_massage_id) + '" a été réalisé avec succès.'
 
 class DeleteServiceView(SuccessMessageMixin, DeleteView):
-    model = Service
-    template_name = 'services/delete_service.html'
-    form_class = ServiceForm
-    success_url = reverse_lazy('list-services')
-    success_message = "Le service a été supprimé avec succès."
+    pass
+#    model = Service
+#    template_name = 'services/delete_service.html'
+#    form_class = ServiceForm
+#    success_url = reverse_lazy('list-services')
+#    success_message = "Le service a été supprimé avec succès."
+#
+#    def form_valid(self, form):
+#        print(">>>>>>>>>>>>>>> form_valid")
+#        return super().form_valid(form)
+#
+#    def form_invalid(self, form):
+#        print("*************** form_invalid")
+#        return super().form_invalid(form)
+
+def delete_service(request, service_id): # TO BE REPLACED BY THE CBV VERSION ASAP!!!
+    service = Service.objects.get(pk=service_id)
+    if request.method == 'POST':
+        service.delete()
+        return redirect('list-services')
+    return render(request, 'services/delete_service.html', {'service': service})
 
 class ShowClientView(DetailView):
     model = Client

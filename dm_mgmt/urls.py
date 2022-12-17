@@ -17,12 +17,13 @@ urlpatterns = [
     path('add_client', login_required(AddClientView.as_view()), name='add-client'),
     path('add_massage', views.add_massage, name='add-massage'),
     path('add_service', login_required(AddServiceView.as_view()), name='add-service'),
-    path('delete_service/<int:pk>', login_required(DeleteServiceView.as_view()), name='delete-service'),
+#    path('delete_service/<int:pk>', login_required(DeleteServiceView.as_view()), name='delete-service'),
     path('show_client/<int:pk>', login_required(ShowClientView.as_view()), name='show-client'),
     path('show_service/<int:pk>', login_required(ShowServiceView.as_view()), name='show-service'),
     path('update_client/<int:pk>', login_required(UpdateClientView.as_view()), name='update-client'),
     path('update_service/<int:pk>', login_required(UpdateServiceView.as_view()), name='update-service'),
 
+    path('delete_service/<service_id>', views.delete_service, name='delete-service'), # TO BE REPLACED BY THE CBV VERSION ASAP!!!
     path('output_client_csv', views.output_client_csv, name='output-client-csv'),
     path('output_client_pdf', views.output_client_pdf, name='output-client-pdf'),
     path('output_service_csv', views.output_service_csv, name='output-service-csv'),
