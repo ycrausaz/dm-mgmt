@@ -11,7 +11,12 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 import os
+import django_heroku
 from pathlib import Path
+
+ON_HEROKU=False
+if "DYNO" in os.environ:
+    ON_HEROKU=True
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +31,10 @@ SECRET_KEY = 'django-insecure-yh&e&7*#d4=twil-xdzn69kdz6#k*ym9$r*1(k7z*6k^zh%hy2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+if ON_HEROKU:
+    ALLOWED_HOSTS = ['mgmt.deb-massage.ch']
+else:
+    ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -75,20 +83,28 @@ WSGI_APPLICATION = 'mgmt.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
-	'default':{
-		'ENGINE': 'django.db.backends.postgresql',
-		'NAME': 'dm-mgmt',
-		'USER': 'mgmt_user',
-		'PASSWORD': 'mgmt_user',
-		'HOST': '127.0.0.1',
-		'PORT': '5432',
-	}
-}
+if ON_HEROKU:
+    DATABASES = {
+    	'default':{
+    		'ENGINE': 'django.db.backends.postgresql',
+    		'NAME': 'ec2-52-48-159-67.eu-west-1.compute.amazonaws.com',
+    		'USER': 'uvwwlizpxibjin',
+    		'PASSWORD': '9e6e09f02eef4416e30f41718efb845bb0096521fd9fcc5cda8903442b4baebf',
+    		'HOST': 'da9m3d3867c50p',
+    		'PORT': '5432',
+    	}
+    }
+else:
+    DATABASES = {
+    	'default':{
+    		'ENGINE': 'django.db.backends.postgresql',
+    		'NAME': 'dm-mgmt',
+    		'USER': 'mgmt_user',
+    		'PASSWORD': 'mgmt_user',
+    		'HOST': '127.0.0.1',
+    		'PORT': '5432',
+    	}
+    }
 
 
 # Password validation
@@ -129,6 +145,9 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = 'static/'
+
+if ON_HEROKU:
+    django_heroku_settings(locals())
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
