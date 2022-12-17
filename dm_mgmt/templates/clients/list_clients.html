@@ -14,7 +14,11 @@
   {% for client in clients %}
     <tr>
       <td>
-        {{ client }}
+        {% if client.client_is_displayed %}
+            {{ client }}
+        {% else %}
+            <s>{{ client }}</s>
+        {% endif %}
       </td>
        <td>
           <a href="{% url 'show-client' client.client_id %}">Détail</a><br/>

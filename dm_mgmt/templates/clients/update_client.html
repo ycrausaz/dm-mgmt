@@ -64,6 +64,11 @@
         <div class="form-group">
         {{ form.client_comment }}
         </div><br/>
+
+        <label for="id_client_is_displayed">Client pris en compte :</label>
+        <div class="form-group">
+        {{ form.client_is_displayed }}
+        </div><br/>
       <input type="submit" value="Enregistrer les modifications" class="btn btn-primary">
       <a href="{% url 'list-clients' %}" id="cancel" name="cancel" class="btn btn-secondary">Retour</a>
     </form>

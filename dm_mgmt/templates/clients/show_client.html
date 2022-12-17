@@ -1,7 +1,11 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>{{ client }}</h1>
+    {% if client.client_is_displayed %}
+        <h1>{{ client }}</h1>
+    {% else %}
+        <h1><s>{{ client }}</s></h1>
+    {% endif%}
     <br/>
     <label for="client_last_name">Nom :</label>
     <div class="form-control" name="client_last_name" style="width: 300px;">{{ client.client_last_name }}</div><br/>
