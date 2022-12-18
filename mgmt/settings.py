@@ -35,7 +35,7 @@ else:
     DEBUG = True
 
 if ON_HEROKU:
-    ALLOWED_HOSTS = ['db-mgmt.deb-massage.ch']
+    ALLOWED_HOSTS = ['.dm-mgmt.herokuapp.com']
 else:
     ALLOWED_HOSTS = ['*']
 
