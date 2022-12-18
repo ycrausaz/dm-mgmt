@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 import os
-import django_heroku
+#import django_heroku
 from pathlib import Path
 
 ON_HEROKU=False
@@ -149,8 +149,8 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = 'static/'
 
-if ON_HEROKU:
-    django_heroku.settings(locals())
+#if ON_HEROKU:
+#    django_heroku.settings(locals())
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
