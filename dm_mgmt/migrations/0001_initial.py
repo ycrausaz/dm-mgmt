@@ -95,7 +95,7 @@ class Migration(migrations.Migration):
                  JOIN dm_mgmt_client ON dm_mgmt_client.client_id = dm_mgmt_service.service_client_id_id;
             
             ALTER TABLE public.dm_mgmt_conso_service
-                OWNER TO mgmt_user;
+                OWNER TO uvwwlizpxibjin;
             """,
             "DROP VIEW dm_mgmt_conso_service;"
         ),

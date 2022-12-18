@@ -86,28 +86,28 @@ WSGI_APPLICATION = 'mgmt.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-if ON_HEROKU:
-    DATABASES = {
-    	'default':{
-    		'ENGINE': 'django.db.backends.postgresql',
-    		'NAME': 'da9m3d3867c50p',
-    		'USER': 'uvwwlizpxibjin',
-    		'PASSWORD': '9e6e09f02eef4416e30f41718efb845bb0096521fd9fcc5cda8903442b4baebf',
-    		'HOST': 'ec2-52-48-159-67.eu-west-1.compute.amazonaws.com',
-    		'PORT': '5432',
-    	}
-    }
-else:
-    DATABASES = {
-    	'default':{
-    		'ENGINE': 'django.db.backends.postgresql',
-    		'NAME': 'dm-mgmt',
-    		'USER': 'mgmt_user',
-    		'PASSWORD': 'mgmt_user',
-    		'HOST': '127.0.0.1',
-    		'PORT': '5432',
-    	}
-    }
+#if ON_HEROKU:
+DATABASES = {
+	'default':{
+		'ENGINE': 'django.db.backends.postgresql',
+		'NAME': 'da9m3d3867c50p',
+		'USER': 'uvwwlizpxibjin',
+		'PASSWORD': '9e6e09f02eef4416e30f41718efb845bb0096521fd9fcc5cda8903442b4baebf',
+		'HOST': 'ec2-52-48-159-67.eu-west-1.compute.amazonaws.com',
+		'PORT': '5432',
+	}
+}
+#else:
+#    DATABASES = {
+#    	'default':{
+#    		'ENGINE': 'django.db.backends.postgresql',
+#    		'NAME': 'dm-mgmt',
+#    		'USER': 'mgmt_user',
+#    		'PASSWORD': 'mgmt_user',
+#    		'HOST': '127.0.0.1',
+#    		'PORT': '5432',
+#    	}
+#    }
 
 
 # Password validation
