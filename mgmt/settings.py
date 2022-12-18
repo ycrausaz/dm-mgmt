@@ -90,10 +90,10 @@ if ON_HEROKU:
     DATABASES = {
     	'default':{
     		'ENGINE': 'django.db.backends.postgresql',
-    		'NAME': 'ec2-52-48-159-67.eu-west-1.compute.amazonaws.com',
+    		'NAME': 'da9m3d3867c50p',
     		'USER': 'uvwwlizpxibjin',
     		'PASSWORD': '9e6e09f02eef4416e30f41718efb845bb0096521fd9fcc5cda8903442b4baebf',
-    		'HOST': 'da9m3d3867c50p',
+    		'HOST': 'ec2-52-48-159-67.eu-west-1.compute.amazonaws.com',
     		'PORT': '5432',
     	}
     }
