@@ -163,3 +163,7 @@ DATETIME_INPUT_FORMATS = ['%d.%m.%Y, %H:%M']
 DATETIME_FORMAT = 'd.m.Y, H:i'
 
 LOGIN_URL = 'login-user'
+
+
+import django_on_heroku
+django_on_heroku.settings(locals())
