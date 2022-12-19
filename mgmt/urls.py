@@ -24,7 +24,7 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-    path('/', include('dm_mgmt.urls')),
+    path(r'', include('dm_mgmt.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
