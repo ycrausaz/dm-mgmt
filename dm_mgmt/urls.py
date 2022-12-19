@@ -11,7 +11,6 @@ from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     path(r'^$', views.home, name='home'),
-    path('', views.home, name='home'),
     path('list_clients', login_required(ListClientsView.as_view()), name='list-clients'),
     path('list_massages', login_required(ListMassagesView.as_view()), name='list-massages'),
     path('list_services', login_required(ListServicesView.as_view()), name='list-services'),
