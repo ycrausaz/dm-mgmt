@@ -88,16 +88,20 @@ WSGI_APPLICATION = 'mgmt.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 if ON_HEROKU:
-    DATABASES = {
-    	'default':{
-    		'ENGINE': 'django.db.backends.postgresql',
-    		'NAME': 'da9m3d3867c50p',
-    		'USER': 'uvwwlizpxibjin',
-    		'PASSWORD': '9e6e09f02eef4416e30f41718efb845bb0096521fd9fcc5cda8903442b4baebf',
-    		'HOST': 'ec2-52-48-159-67.eu-west-1.compute.amazonaws.com',
-    		'PORT': '5432',
-    	}
-    }
+#    DATABASES = {
+#    	'default':{
+#    		'ENGINE': 'django.db.backends.postgresql',
+#    		'NAME': 'da9m3d3867c50p',
+#    		'USER': 'uvwwlizpxibjin',
+#    		'PASSWORD': '9e6e09f02eef4416e30f41718efb845bb0096521fd9fcc5cda8903442b4baebf',
+#    		'HOST': 'ec2-52-48-159-67.eu-west-1.compute.amazonaws.com',
+#    		'PORT': '5432',
+#    	}
+#    }
+    DATABASES['default'] = dj_database_url.config(
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 else:
     DATABASES = {
     	'default':{
