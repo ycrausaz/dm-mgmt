@@ -12,7 +12,7 @@ class Client(models.Model):
     client_id = models.AutoField(primary_key=True, unique=True)
     client_first_name = models.CharField('Prénom', max_length=80)
     client_last_name = models.CharField('Nom', max_length=80)
-    client_birthdate = models.DateField('Date de naissance', null=True)#, help_text="Format : jj.mm.aaaa (Exemple : 24.02.1980)")
+    client_birthdate = models.DateField('Date de naissance', null=True, blank=True)#, help_text="Format : jj.mm.aaaa (Exemple : 24.02.1980)")
     client_address = models.CharField('Adresse', null=True, blank=True, max_length=80)
     client_additional_address = models.CharField('Complément d\'adresse', null=True, blank=True, max_length=80)
     client_zip_code = models.PositiveSmallIntegerField('NPA', null=True, blank=True)
@@ -21,10 +21,13 @@ class Client(models.Model):
     client_phone_number_2 = models.CharField('Téléphone 2', max_length=30, null=True, blank=True)#, help_text="Format : +xx xx xxx xx xx (Exemple : +41 79 123 45 67)")
     client_email_address = models.EmailField('E-mail', null=True, blank=True)
     client_comment = models.TextField('Commentaire', null=True, blank=True)
-    client_is_displayed = models.BooleanField('Client à prendre en compte', default=True)
+    client_is_displayed = models.BooleanField('Client à prendre en compte', null=True, default=True)
 
     def __str__(self):
-        return self.client_last_name + " " + self.client_first_name  + " (" + str(self.client_birthdate.strftime("%d.%m.%Y")) + ")"
+        ret = self.client_last_name + " " + self.client_first_name
+        if not self.client_birthdate is None:
+            ret += " (" + str(self.client_birthdate.strftime("%d.%m.%Y")) + ")"
+        return ret
 
 #    def save(self, *args, **kwargs):
 #        print("Save 'Client'")
