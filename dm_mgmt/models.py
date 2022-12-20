@@ -21,7 +21,7 @@ class Client(models.Model):
     client_phone_number_2 = models.CharField('Téléphone 2', max_length=30, null=True, blank=True)#, help_text="Format : +xx xx xxx xx xx (Exemple : +41 79 123 45 67)")
     client_email_address = models.EmailField('E-mail', null=True, blank=True)
     client_comment = models.TextField('Commentaire', null=True, blank=True)
-    client_is_displayed = models.BooleanField('Client à prendre en compte', null=True, default=True)
+    client_is_displayed = models.BooleanField('Client à prendre en compte', default=True)
 
     def __str__(self):
         ret = self.client_last_name + " " + self.client_first_name
