@@ -44,7 +44,7 @@ class ClientForm(ModelForm):
 
 #class ClientFormReadonly(ClientForm):
 
-class OutputServices(forms.Form):
+class OutputForm(forms.Form):
     min_date = forms.CharField(label='Date de début', max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'jj.mm.aaaa'}))
     max_date = forms.CharField(label='Date de fin', max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'jj.mm.aaaa'}))
 

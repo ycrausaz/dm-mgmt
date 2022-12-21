@@ -42,18 +42,16 @@
             <li><a class="dropdown-item" href="{% url 'list-massages' %}">Lister les massages</a></li>
           </ul>
         </li>-->
-<!--        <li class="nav-item dropdown">
+        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Output
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="{% url 'output-client-csv' %}">Clients CSV (Excel)</a></li>
-            <li><a class="dropdown-item" href="{% url 'output-client-pdf' %}">Clients PDF</a></li>
-            <div class="dropdown-divider"></div>
-            <li><a class="dropdown-item" href="{% url 'output-service-csv' %}">Prestations CSV (Excel)</a></li>
-            <li><a class="dropdown-item" href="{% url 'output-service-pdf' %}">Prestations PDF</a></li>
+            <li><a class="dropdown-item" href="{% url 'output-clients-csv' %}">Clients actifs CSV (Excel)</a></li>
+            <li><a class="dropdown-item" href="{% url 'output-all-clients-csv' %}">Tous les clients CSV (Excel)</a></li>
+            <li><a class="dropdown-item" href="{% url 'output-services-csv' %}">Prestations CSV (Excel)</a></li>
          </ul>
-        </li>-->
+        </li>
         <li>
             <a class="nav-link" href="{% url 'logout-user' %}">Logout</a>
         </li>
