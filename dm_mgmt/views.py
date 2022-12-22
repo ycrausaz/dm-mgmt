@@ -282,7 +282,6 @@ class OutputServicesView(View):
 #        form = OutputForm()
 #        return render(request, 'outputs/output_service_pdf.html', {'form': form})
 
-
 class OutputAllClientsCSV(View):
     def get(self, request, *args, **kwargs):
         response = HttpResponse(content_type='text/csv')
@@ -298,7 +297,6 @@ class OutputAllClientsCSV(View):
         
         for client in clients:
             writer.writerow([client.client_last_name, client.client_first_name, client.client_birthdate, client.client_address, client.client_additional_address, client.client_zip_code, client.client_city, client.client_phone_number_1, client.client_phone_number_2, client.client_email_address])
-        
         return response
 
 class OutputClientsCSV(View):
@@ -316,12 +314,10 @@ class OutputClientsCSV(View):
         
         for client in clients:
             writer.writerow([client.client_last_name, client.client_first_name, client.client_birthdate, client.client_address, client.client_additional_address, client.client_zip_code, client.client_city, client.client_phone_number_1, client.client_phone_number_2, client.client_email_address])
-        
         return response
 
-
-def login_user(request):
-    if request.method == "POST":
+class UserLogin(View):
+    def post(self, request, *args, **kwargs):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
@@ -331,10 +327,11 @@ def login_user(request):
         else:
             messages.success(request, ("Erreur dans le login"))
             return redirect('login-user')
-    else:
+
+    def get(self, request, *args, **kwargs):
         return render(request, 'login_user.html', {})
 
-def logout_user(request):
-    logout(request)
-    return redirect('login-user')
-
+class UserLogout(View):
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        return redirect('login-user')
