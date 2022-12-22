@@ -282,42 +282,42 @@ class OutputServicesView(View):
 #        form = OutputForm()
 #        return render(request, 'outputs/output_service_pdf.html', {'form': form})
 
-@login_required
-def output_clients_csv(request):
-    response = HttpResponse(content_type='text/csv')
-    date_str = datetime.now().strftime("%Y%m%d")
-    filename = "clients-" + date_str
-    response['Content-Disposition'] = 'attachment; filename="' + filename + '"'
-    
-    writer = csv.writer(response)
-    
-    clients = Client.objects.filter(client_is_displayed=True)
 
-    writer.writerow(['Nom', 'Prénom', 'Date de naissance', 'Addresse', 'Complément d\'adresse', 'NPA', 'Localité', 'Téléphone 1', 'Téléphone 2', 'E-mail'])
+class OutputAllClientsCSV(View):
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/csv')
+        date_str = datetime.now().strftime("%Y%m%d")
+        filename = "all_clients-" + date_str
+        response['Content-Disposition'] = 'attachment; filename="' + filename + '"'
+        
+        writer = csv.writer(response)
+        
+        clients = Client.objects.all()
     
-    for client in clients:
-        writer.writerow([client.client_last_name, client.client_first_name, client.client_birthdate, client.client_address, client.client_additional_address, client.client_zip_code, client.client_city, client.client_phone_number_1, client.client_phone_number_2, client.client_email_address])
-    
-    return response
+        writer.writerow(['Nom', 'Prénom', 'Date de naissance', 'Addresse', 'Complément d\'adresse', 'NPA', 'Localité', 'Téléphone 1', 'Téléphone 2', 'E-mail'])
+        
+        for client in clients:
+            writer.writerow([client.client_last_name, client.client_first_name, client.client_birthdate, client.client_address, client.client_additional_address, client.client_zip_code, client.client_city, client.client_phone_number_1, client.client_phone_number_2, client.client_email_address])
+        
+        return response
 
-
-@login_required
-def output_all_clients_csv(request):
-    response = HttpResponse(content_type='text/csv')
-    date_str = datetime.now().strftime("%Y%m%d")
-    filename = "all_clients-" + date_str
-    response['Content-Disposition'] = 'attachment; filename="' + filename + '"'
+class OutputClientsCSV(View):
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/csv')
+        date_str = datetime.now().strftime("%Y%m%d")
+        filename = "clients-" + date_str
+        response['Content-Disposition'] = 'attachment; filename="' + filename + '"'
+        
+        writer = csv.writer(response)
+        
+        clients = Client.objects.filter(client_is_displayed=True)
     
-    writer = csv.writer(response)
-    
-    clients = Client.objects.all()
-
-    writer.writerow(['Nom', 'Prénom', 'Date de naissance', 'Addresse', 'Complément d\'adresse', 'NPA', 'Localité', 'Téléphone 1', 'Téléphone 2', 'E-mail'])
-    
-    for client in clients:
-        writer.writerow([client.client_last_name, client.client_first_name, client.client_birthdate, client.client_address, client.client_additional_address, client.client_zip_code, client.client_city, client.client_phone_number_1, client.client_phone_number_2, client.client_email_address])
-    
-    return response
+        writer.writerow(['Nom', 'Prénom', 'Date de naissance', 'Addresse', 'Complément d\'adresse', 'NPA', 'Localité', 'Téléphone 1', 'Téléphone 2', 'E-mail'])
+        
+        for client in clients:
+            writer.writerow([client.client_last_name, client.client_first_name, client.client_birthdate, client.client_address, client.client_additional_address, client.client_zip_code, client.client_city, client.client_phone_number_1, client.client_phone_number_2, client.client_email_address])
+        
+        return response
 
 
 def login_user(request):
