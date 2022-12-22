@@ -7,6 +7,7 @@ from django.contrib import messages
 
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic import ListView, DetailView
+from django.views.generic.base import View
 
 from django.contrib.messages.views import SuccessMessageMixin
 
@@ -177,33 +178,18 @@ class UpdateServiceView (SuccessMessageMixin, UpdateView):
     success_url = reverse_lazy('list-services')
     success_message = 'Les informations du service on été mises à jour avec succès.'
 
-def login_user(request):
-    if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('add-service')
-        else:
-            messages.success(request, ("Erreur dans le login"))
-            return redirect('login-user')
-    else:
-        return render(request, 'login_user.html', {})
+class OutputServicesView(View):
+    def get(self, request, *args, **kwargs):
+        form = OutputForm()
+        return render(request, 'outputs/output_services_csv.html', {'form': form})
 
-def logout_user(request):
-    logout(request)
-    return redirect('login-user')
-
-@login_required
-def output_services_csv(request):
-    if request.method == "POST":
+    def post(self, request, *args, **kwargs):
         response = HttpResponse(content_type='text/csv')
         min_date = request.POST['min_date']
-        logger.info("************* min_date = " + min_date)
+#        logger.info("************* min_date = " + min_date)
         min_date_str = datetime.strptime(min_date, "%d.%m.%Y").strftime("%Y%m%d")
         max_date = request.POST['max_date']
-        logger.info("************* max_date = " + max_date)
+#        logger.info("************* max_date = " + max_date)
         max_date_str = datetime.strptime(max_date, "%d.%m.%Y").strftime("%Y%m%d")
         filename = "prestations-" + min_date_str + "-" + max_date_str
         response['Content-Disposition'] = 'attachment; filename="' + filename + '"'
@@ -216,8 +202,8 @@ def output_services_csv(request):
         min_date = datetime.strptime(min_date, "%d.%m.%Y").strftime("%Y-%m-%d")
         max_date = datetime.strptime(max_date, "%d.%m.%Y").strftime("%Y-%m-%d")
 
-        logger.info(min_date)
-        logger.info(max_date)
+#        logger.info(min_date)
+#        logger.info(max_date)
     
         services = ConsoService.objects.filter(service_date__range=(min_date, max_date))
     
@@ -227,10 +213,7 @@ def output_services_csv(request):
             writer.writerow([service.client_name, service.massage_name, service.service_date, service.service_cashed_price, service.service_is_voucher])
         
         return response
-    else:
-        form = OutputForm()
-        return render(request, 'outputs/output_services_csv.html', {'form': form})
-
+       
 #@login_required
 #def output_service_pdf(request):
 #    if request.method == "POST":
@@ -337,4 +320,21 @@ def output_all_clients_csv(request):
     return response
 
 
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('add-service')
+        else:
+            messages.success(request, ("Erreur dans le login"))
+            return redirect('login-user')
+    else:
+        return render(request, 'login_user.html', {})
+
+def logout_user(request):
+    logout(request)
+    return redirect('login-user')
 

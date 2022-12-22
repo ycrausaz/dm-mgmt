@@ -2,7 +2,7 @@ from django.views.i18n import JavaScriptCatalog
 from django.urls import include
 from django.urls import path
 from . import views
-from .views import AddClientView, AddServiceView, ListServicesView, ListMassagesView, ListClientsView, DeleteServiceView, ShowClientView, ShowServiceView, UpdateClientView, UpdateServiceView
+from .views import AddClientView, AddServiceView, ListServicesView, ListMassagesView, ListClientsView, DeleteServiceView, ShowClientView, ShowServiceView, UpdateClientView, UpdateServiceView, OutputServicesView
 from django.contrib.auth.decorators import login_required
 
 # urlpatterns += [
@@ -22,12 +22,12 @@ urlpatterns = [
     path('show_service/<int:pk>', login_required(ShowServiceView.as_view()), name='show-service'),
     path('update_client/<int:pk>', login_required(UpdateClientView.as_view()), name='update-client'),
     path('update_service/<int:pk>', login_required(UpdateServiceView.as_view()), name='update-service'),
+    path('output_services_csv', login_required(OutputServicesView.as_view()), name='output-services-csv'),
 
     path('delete_service/<service_id>', views.delete_service, name='delete-service'), # TO BE REPLACED BY THE CBV VERSION ASAP!!!
     path('output_clients_csv', views.output_clients_csv, name='output-clients-csv'),
     path('output_all_clients_csv', views.output_all_clients_csv, name='output-all-clients-csv'),
 #    path('output_clients_pdf', views.output_clients_pdf, name='output-clients-pdf'),
-    path('output_services_csv', views.output_services_csv, name='output-services-csv'),
 #    path('output_services_pdf', views.output_services_pdf, name='output-services-pdf'),
     path('login_user', views.login_user, name='login-user'),
     path('logout_user', views.logout_user, name='logout-user'),
