@@ -287,7 +287,7 @@ class OutputAllClientsCSV(View):
     def get(self, request, *args, **kwargs):
         response = HttpResponse(content_type='text/csv')
         date_str = datetime.now().strftime("%Y%m%d")
-        filename = "all_clients-" + date_str
+        filename = "clients_total-" + date_str
         response['Content-Disposition'] = 'attachment; filename="' + filename + '"'
         
         writer = csv.writer(response)
@@ -305,7 +305,7 @@ class OutputClientsCSV(View):
     def get(self, request, *args, **kwargs):
         response = HttpResponse(content_type='text/csv')
         date_str = datetime.now().strftime("%Y%m%d")
-        filename = "clients-" + date_str
+        filename = "clients_actifs-" + date_str
         response['Content-Disposition'] = 'attachment; filename="' + filename + '"'
         
         writer = csv.writer(response)
