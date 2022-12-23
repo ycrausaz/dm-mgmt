@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'pwa',
 	'dm_mgmt',
 ]
 
@@ -63,6 +64,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
+
+#STATICFILES_DIRS = [
+#    os.path.join(BASE_DIR, 'static'),
+#]
 
 if ON_HEROKU:
     MIDDLEWARE += [
@@ -178,6 +183,35 @@ DATETIME_FORMAT = 'd.m.Y, H:i'
 
 LOGIN_URL = 'login-user'
 
+PWA_APP_NAME = 'mgmt'
+PWA_APP_DESCRIPTION = "Management for deb.massage"
+PWA_APP_THEME_COLOR = '#0A0302'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_ICONS = [
+    {
+        'src': 'staticfiles/icons/icon_160x160.png',
+        'sizes': '160x160'
+    }
+]
+PWA_APP_ICONS_APPLE = [
+    {
+        'src': 'staticfiles/icons/icon_160x160.png',
+        'sizes': '160x160'
+    }
+]
+PWA_APP_SPLASH_SCREEN = [
+    {
+        'src': 'staticfiles/images/background_iOS.png',
+        'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
+    }
+]
+#PWA_APP_DIR = 'ltr'
+#PWA_APP_LANG = 'en-US'
 
 import django_on_heroku
 django_on_heroku.settings(locals())
