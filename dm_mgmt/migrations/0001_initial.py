@@ -87,6 +87,7 @@ class Migration(migrations.Migration):
              AS
              SELECT dm_mgmt_client.client_id,
                 concat(dm_mgmt_client.client_last_name, ' ', dm_mgmt_client.client_first_name) AS client_name,
+                dm_mgmt_client.client_gender,
                 dm_mgmt_massage.massage_name,
                 dm_mgmt_service.service_date,
                 dm_mgmt_service.service_cashed_price,
