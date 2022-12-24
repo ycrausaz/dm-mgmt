@@ -7,11 +7,12 @@ from django.db import models, IntegrityError
 # Create your models here.
 
 
-
 class Client(models.Model):
+    GENDER_CHOICES = {("M", "M"), ("F", "F")}
     client_id = models.AutoField(primary_key=True, unique=True)
     client_first_name = models.CharField('Prénom', max_length=80)
     client_last_name = models.CharField('Nom', max_length=80)
+    client_gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default="M")
     client_birthdate = models.DateField('Date de naissance', null=True, blank=True)#, help_text="Format : jj.mm.aaaa (Exemple : 24.02.1980)")
     client_address = models.CharField('Adresse', null=True, blank=True, max_length=80)
     client_additional_address = models.CharField('Complément d\'adresse', null=True, blank=True, max_length=80)
