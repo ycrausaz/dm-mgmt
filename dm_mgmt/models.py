@@ -89,6 +89,7 @@ class Service(models.Model):
 
 
 class ConsoService(models.Model):
+    service_id = models.IntegerField()
     client_id = models.IntegerField()
     client_name = models.CharField(max_length=255, primary_key=True)
     client_gender = models.CharField(max_length=1)

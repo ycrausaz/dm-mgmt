@@ -56,4 +56,4 @@ class Meta:
 class ConsoServiceForm(ModelForm):
     class Meta:
         model = ConsoService
-        fields = ['client_id', 'client_name', 'massage_name', 'service_date', 'service_cashed_price']
+        fields = ['service_id', 'client_id', 'client_name', 'massage_name', 'service_date', 'service_cashed_price']
