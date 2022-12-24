@@ -23,7 +23,7 @@ class ServiceForm(ModelForm):
          }
 
 class ClientForm(ModelForm):
-
+    required_css_class = 'required'
 #    client_birthdate = forms.DateField(widget=forms.DateInput(format='%d.%m.%Y'), input_formats=['%d.%m.%Y'])
     class Meta:
         model = Client
@@ -46,6 +46,7 @@ class ClientForm(ModelForm):
 #class ClientFormReadonly(ClientForm):
 
 class DateChooserFromToForm(forms.Form):
+    required_css_class = 'required'
     min_date = forms.CharField(label='Date de début', max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'jj.mm.aaaa'}))
     max_date = forms.CharField(label='Date de fin', max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'jj.mm.aaaa'}))
 
