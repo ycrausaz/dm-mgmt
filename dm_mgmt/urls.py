@@ -2,7 +2,7 @@ from django.views.i18n import JavaScriptCatalog
 from django.urls import include
 from django.urls import path
 from . import views
-from .views import AddClientView, AddServiceView, ListServicesView, ListMassagesView, ListClientsView, DeleteServiceView, ShowClientView, ShowServiceView, UpdateClientView, UpdateServiceView, OutputServicesView, OutputClientsCSV, OutputAllClientsCSV, UserLogin, UserLogout
+from .views import AddClientView, AddServiceView, ListServicesView, ListMassagesView, ListClientsView, DeleteServiceView, ShowClientView, ShowServiceView, UpdateClientView, UpdateServiceView, OutputServicesView, OutputClientsCSV, OutputAllClientsCSV, UserLogin, UserLogout, StatsView
 from django.contrib.auth.decorators import login_required
 
 # urlpatterns += [
@@ -28,6 +28,7 @@ urlpatterns = [
     path('output_clients_csv', login_required(OutputClientsCSV.as_view()), name='output-clients-csv'),
     path('login_user', UserLogin.as_view(), name='login-user'),
     path('logout_user', UserLogout.as_view(), name='logout-user'),
+    path('stats', login_required(StatsView.as_view()), name='stats'),
 
     # TO BE REPLACED BY THE CBV VERSION ASAP!!!
     path('delete_service/<service_id>', views.delete_service, name='delete-service'),
