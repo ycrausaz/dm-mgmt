@@ -332,13 +332,22 @@ class StatsView(View):
 
         services = ConsoService.objects.filter(service_date__range=(min_date_sql, max_date_sql)).values()
         df = pd.DataFrame(services)
-        cols = set(df.columns) - {'client_id'}
-        df_OK = df[list(cols)]
+        df['client_gender'] = df['client_gender'].astype('category').cat.codes
+
+        nb_f = 11
+        nb_m = 22
+        total_h = 33
+        total_chf = 44
 
         context = {
             'min_date': min_date,
             'max_date': max_date,
-            'desc': df_OK.describe().to_html()
+            'nb_f': nb_f,
+            'nb_m': nb_m,
+            'total_h': total_h,
+            'total_chf': total_chf,
+            'df': df.to_html(),
+            'desc': df.describe().to_html(),
         }
 
         return render(request, 'stats/stats.html', context)
