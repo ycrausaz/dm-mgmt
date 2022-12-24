@@ -16,7 +16,7 @@ from django.urls import reverse_lazy
 # Create your views here.
 
 from .models import Client, Massage, Service, ConsoService
-from .forms import ServiceForm, ClientForm, OutputForm
+from .forms import ServiceForm, ClientForm, DateChooserFromToForm
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
@@ -34,6 +34,8 @@ from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_CENTER 
 from reportlab.lib import colors
 import json
+
+import pandas as pd
 
 import logging
 logging.basicConfig(level=logging.INFO)
@@ -180,7 +182,7 @@ class UpdateServiceView (SuccessMessageMixin, UpdateView):
 
 class OutputServicesView(View):
     def get(self, request, *args, **kwargs):
-        form = OutputForm()
+        form = DateChooserFromToForm()
         return render(request, 'outputs/output_services_csv.html', {'form': form})
 
     def post(self, request, *args, **kwargs):
@@ -279,7 +281,7 @@ class OutputServicesView(View):
 #        return response
 #
 #    else:
-#        form = OutputForm()
+#        form = DateChooserFromToForm()
 #        return render(request, 'outputs/output_service_pdf.html', {'form': form})
 
 class OutputAllClientsCSV(View):
@@ -315,6 +317,26 @@ class OutputClientsCSV(View):
         for client in clients:
             writer.writerow([client.client_last_name, client.client_first_name, client.client_birthdate, client.client_address, client.client_additional_address, client.client_zip_code, client.client_city, client.client_phone_number_1, client.client_phone_number_2, client.client_email_address])
         return response
+
+class StatsView(View):
+    def get(self, request, *args, **kwargs):
+        form = DateChooserFromToForm()
+        return render(request, 'stats/stats_get_dates.html', {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        min_date = request.POST['min_date']
+        max_date = request.POST['max_date']
+
+        min_date_sql = datetime.strptime(min_date, "%d.%m.%Y").strftime("%Y-%m-%d")
+        max_date_sql = datetime.strptime(max_date, "%d.%m.%Y").strftime("%Y-%m-%d")
+
+        services = ConsoService.objects.filter(service_date__range=(min_date_sql, max_date_sql))
+        services = list(services)
+        df = pd.DataFrame(services)
+        
+        shape = str(df.columns)
+
+        return render(request, 'stats/stats.html', {'min_date': min_date, 'max_date': max_date, 'shape': shape})
 
 class UserLogin(View):
     def post(self, request, *args, **kwargs):
