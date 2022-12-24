@@ -91,6 +91,7 @@ class Service(models.Model):
 class ConsoService(models.Model):
     client_id = models.IntegerField()
     client_name = models.CharField(max_length=255, primary_key=True)
+    client_gender = models.CharField(max_length=1)
     massage_name = models.CharField(max_length=255)
     service_date = models.DateField()
     service_cashed_price = models.FloatField()
