@@ -330,13 +330,18 @@ class StatsView(View):
         min_date_sql = datetime.strptime(min_date, "%d.%m.%Y").strftime("%Y-%m-%d")
         max_date_sql = datetime.strptime(max_date, "%d.%m.%Y").strftime("%Y-%m-%d")
 
-        services = ConsoService.objects.filter(service_date__range=(min_date_sql, max_date_sql))
-        services = list(services)
+        services = ConsoService.objects.filter(service_date__range=(min_date_sql, max_date_sql)).values()
         df = pd.DataFrame(services)
-        
-        shape = str(df.columns)
+        cols = set(df.columns) - {'client_id'}
+        df_OK = df[list(cols)]
 
-        return render(request, 'stats/stats.html', {'min_date': min_date, 'max_date': max_date, 'shape': shape})
+        context = {
+            'min_date': min_date,
+            'max_date': max_date,
+            'desc': df_OK.describe().to_html()
+        }
+
+        return render(request, 'stats/stats.html', context)
 
 class UserLogin(View):
     def post(self, request, *args, **kwargs):
