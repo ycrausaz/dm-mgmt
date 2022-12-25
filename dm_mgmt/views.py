@@ -332,22 +332,35 @@ class StatsView(View):
 
         services = ConsoService.objects.filter(service_date__range=(min_date_sql, max_date_sql)).values()
         df = pd.DataFrame(services)
+        df_init = df.copy()
         df['client_gender'] = df['client_gender'].astype('category').cat.codes
 
-        nb_f = 11
-        nb_m = 22
-        total_h = 33
-        total_chf = 44
+        nb_m = len(df[df['client_gender']==1])
+        nb_f = len(df[df['client_gender']==0])
+        nb_total = nb_f + nb_m
+        total_h = df['service_duration'].sum()/60
+        total_chf = df['service_cashed_price'].sum()
+
+        top_clients_10 = df.nlargest(10, 'service_duration')[['client_name', 'service_duration']]
+        top_clients_10 = top_clients_10.to_html(header=False, index=False)
+
+        top_massages_10_1 = df[~df[df.columns[4]].str.match("Abo.*")]
+        top_massages_10_2 = top_massages_10_1[~top_massages_10_1[top_massages_10_1.columns[4]].str.match("Bon.*")]
+        top_massages_10 = top_massages_10_2.nlargest(10, 'service_duration')[['massage_name', 'service_duration']]
+        top_massages_10 = top_massages_10.to_html(header=False, index=False)
 
         context = {
             'min_date': min_date,
             'max_date': max_date,
+            'nb_total': nb_total,
             'nb_f': nb_f,
             'nb_m': nb_m,
             'total_h': total_h,
             'total_chf': total_chf,
-            'df': df.to_html(),
-            'desc': df.describe().to_html(),
+            'top_clients_10': top_clients_10,
+            'top_massages_10': top_massages_10,
+            'df': df_init.to_html(),
+#            'desc': df.describe().to_html(),
         }
 
         return render(request, 'stats/stats.html', context)

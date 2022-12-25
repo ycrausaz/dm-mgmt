@@ -3,14 +3,20 @@
 {% block content %}
     <h1>Statistiques pour le période entre le {{ min_date }} et le {{ max_date }} :</h1>
     <br/>
-    Nombre de prestations fournies : {{ nb_f|add:nb_m }} (femmes : {{ nb_f }}, hommes : {{nb_m }})
+    Nombre de prestations fournies : {{ nb_total }} (femmes : {{ nb_f }}, hommes : {{nb_m }})
     <br/>
-    Nombre d'heures : {{ total_h }}
     <br/>
-    Montant total encaissé : CHF {{ total_chf }}
+    Durée totale : {{ total_h | floatformat:"-2u" }} heures
     <br/>
+    <br/>
+    Montant total encaissé : CHF {{ total_chf | floatformat:"-2u" }}
+    <br/>
+    <br/>
+    Top 10 des clients et le nombre d'heures de prestations : {{ top_clients_10 | safe }}
+    <br/>
+    Top 10 des massages et le nombre d'heures de prestations : {{ top_massages_10 | safe }}
+    <br/>
+<!--    {{ desc | safe }}-->
     <br/>
     {{ df | safe }}
-    <br/>
-    {{ desc | safe }}
 {% endblock %}
