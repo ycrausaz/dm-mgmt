@@ -342,12 +342,11 @@ class StatsView(View):
         total_chf = df['service_cashed_price'].sum()
 
         top_clients_10 = df.nlargest(10, 'service_duration')[['client_name', 'service_duration']]
-        top_clients_10 = top_clients_10.to_html(header=False, index=False)
+        top_clients_10 = dict(zip(top_clients_10['client_name'], top_clients_10['service_duration']))
 
-        top_massages_10_1 = df[~df[df.columns[4]].str.match("Abo.*")]
-        top_massages_10_2 = top_massages_10_1[~top_massages_10_1[top_massages_10_1.columns[4]].str.match("Bon.*")]
-        top_massages_10 = top_massages_10_2.nlargest(10, 'service_duration')[['massage_name', 'service_duration']]
-        top_massages_10 = top_massages_10.to_html(header=False, index=False)
+        top_massages_10 = df[~(df[df.columns[4]].str.match("abo.*", case=False) | df[df.columns[4]].str.match("bon.*", case=False))]
+        top_massages_10 = top_massages_10.nlargest(10, 'service_duration')[['massage_name', 'service_duration']]
+        top_massages_10 = dict(zip(top_massages_10['massage_name'], top_massages_10['service_duration']))
 
         context = {
             'min_date': min_date,

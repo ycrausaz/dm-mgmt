@@ -12,11 +12,20 @@
     Montant total encaissé : CHF {{ total_chf | floatformat:"-2u" }}
     <br/>
     <br/>
-    Top 10 des clients et le nombre d'heures de prestations : {{ top_clients_10 | safe }}
+    Top 10 des clients et le nombre d'heures de prestations :<br/>
+    {% for key, value in top_clients_10.items %}
+        <div style="text-indent: 50px;">
+        {{ forloop.counter }}. {{ key }} : {{ value }} heures<br/>
+        </div>
+    {% endfor %}
     <br/>
-    Top 10 des massages et le nombre d'heures de prestations : {{ top_massages_10 | safe }}
+    Top {{ top_massages_10 | length }} des massages et le nombre d'heures de prestations :<br/>
+    {% for key, value in top_massages_10.items %}
+        <div style="text-indent: 50px;">
+        {{ forloop.counter }}. {{ key }} : {{ value }} heures<br/>
+        </div>
+    {% endfor %}
     <br/>
-<!--    {{ desc | safe }}-->
-    <br/>
+    Liste complète :<br/>
     {{ df | safe }}
 {% endblock %}
