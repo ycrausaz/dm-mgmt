@@ -341,12 +341,16 @@ class StatsView(View):
         total_h = df['service_duration'].sum()/60
         total_chf = df['service_cashed_price'].sum()
 
-        top_clients_10 = df.nlargest(10, 'service_duration')[['client_name', 'service_duration']]
-        top_clients_10 = dict(zip(top_clients_10['client_name'], top_clients_10['service_duration']))
+        top_clients_10 = df.nlargest(10, 'service_duration')[['client_id', 'client_name', 'service_duration']]
+#        top_clients_10 = dict(zip(top_clients_10['client_id'], top_clients_10['client_name'], top_clients_10['service_duration']))
+        top_clients_10 = top_clients_10.to_dict(orient='index')
+        print(top_clients_10)
 
         top_massages_10 = df[~(df[df.columns[4]].str.match("abo.*", case=False) | df[df.columns[4]].str.match("bon.*", case=False))]
-        top_massages_10 = top_massages_10.nlargest(10, 'service_duration')[['massage_name', 'service_duration']]
-        top_massages_10 = dict(zip(top_massages_10['massage_name'], top_massages_10['service_duration']))
+        top_massages_10 = top_massages_10.nlargest(10, 'service_duration')[['service_id', 'massage_name', 'service_duration']]
+#        top_massages_10 = dict(zip(top_massages_10['massage_id'], top_massages_10['massage_name'], top_massages_10['service_duration']))
+        top_massages_10 = top_massages_10.to_dict(orient='index')
+        print(top_massages_10)
 
         context = {
             'min_date': min_date,
@@ -359,7 +363,6 @@ class StatsView(View):
             'top_clients_10': top_clients_10,
             'top_massages_10': top_massages_10,
             'df': df_init.to_html(),
-#            'desc': df.describe().to_html(),
         }
 
         return render(request, 'stats/stats.html', context)
