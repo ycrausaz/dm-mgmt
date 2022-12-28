@@ -17,14 +17,14 @@
         {{ service }}
       </td>
       <td>
-          <a href="{% url 'show-service' service.service_id %}">Consulter</a><br/>
+          <a href="{% url 'show-service' service.service_id %}">Détail</a><br/>
       </td>
-      <td>
+<!--      <td>
           <a href="{% url 'update-service' service.service_id %}">Modifier</a><br/>
       </td>
       <td>
           <a href="{% url 'delete-service' service.service_id %}">Supprimer</a><br/>
-      </td>
+      </td>-->
     </tr>
   {% endfor %}
 </table>

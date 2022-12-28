@@ -9,7 +9,7 @@
   <br/>
    <form action="" method="POST">
      {% csrf_token %}
-     <input type="submit" value="Supprimer" class="btn btn-primary">
-     <a href="{% url 'list-services'%}" class="btn btn-secondary">Annuler</a>
+     <input type="submit" value="Supprimer" class="btn btn-danger">
+     <input type=button value="Annuler" class="btn btn-primary" onClick="javascript:history.go(-1);">
    </form>
 {% endblock %}

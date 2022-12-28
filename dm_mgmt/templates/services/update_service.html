@@ -7,7 +7,7 @@
      {% csrf_token %}
      {{ form.as_p }}
      <br/>
-     <input type="submit" value="Enregistrer les modifications" class="btn btn-primary">
-     <a href="{% url 'list-services' %}" id="cancel" name="cancel" class="btn btn-secondary">Retour</a>
+     <input type="submit" value="Enregistrer les modifications" class="btn btn-warning">
+     <input type=button value="Annuler" class="btn btn-primary" onClick="javascript:history.go(-1);">
    </form>
 {% endblock %}
