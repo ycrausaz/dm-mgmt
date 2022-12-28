@@ -15,7 +15,7 @@
 
     {{ form.as_p }}
 
-    <input type="submit" value="Enregistrer" class="btn btn-secondary">
+    <input type="submit" value="Enregistrer" class="btn btn-secondary" tabindex="6">
   </form>
 
     <script>
@@ -79,8 +79,8 @@
         } else {
             document.getElementById('id_service_cashed_price').disabled = false;
             document.getElementById('id_service_cashed_price').value = price;
-            document.getElementById('id_service_cashed_price').focus();
-            document.getElementById('id_service_cashed_price').select();
+//            document.getElementById('id_service_cashed_price').focus();
+//            document.getElementById('id_service_cashed_price').select();
         }
     }
     

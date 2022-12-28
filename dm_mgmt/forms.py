@@ -14,12 +14,12 @@ class ServiceForm(ModelForm):
         model = Service
         fields = ['service_client_id', 'service_date', 'service_massage_id', 'service_is_voucher', 'service_cashed_price']
         widgets = {
-            'service_client_id': forms.Select(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Nom du client'}),
-            'service_massage_id': forms.Select(attrs={'class':'form-control', 'style':'width: 300px;', 'onchange': "updateMassageInfo();"}),#, 'placeholder':'Nom du massage'}),
-            'service_date': forms.DateInput(format="%d.%m.%Y", attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'jj.mm.aaaa'}),
+            'service_client_id': forms.Select(attrs={'class':'form-control', 'style':'width: 300px;', 'tabindex':1}),#, 'placeholder':'Nom du client'}),
+            'service_massage_id': forms.Select(attrs={'class':'form-control', 'style':'width: 300px;', 'onchange': "updateMassageInfo();", 'tabindex':3}),#, 'placeholder':'Nom du massage'}),
+            'service_date': forms.DateInput(format="%d.%m.%Y", attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'jj.mm.aaaa', 'tabindex':2}),
             'service_comment': forms.Textarea(attrs={'class':'form-control', 'rows':5}),
-            'service_cashed_price': forms.NumberInput(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Prix encaissé'}),
-            'service_is_voucher': forms.CheckboxInput(attrs={'class': 'form-check-input'})
+            'service_cashed_price': forms.NumberInput(attrs={'class':'form-control', 'style':'width: 300px;', 'tabindex':5}),#, 'placeholder':'Prix encaissé'}),
+            'service_is_voucher': forms.CheckboxInput(attrs={'class': 'form-check-input', 'tabindex':4})
          }
 
 class ClientForm(ModelForm):
@@ -47,8 +47,8 @@ class ClientForm(ModelForm):
 
 class DateChooserFromToForm(forms.Form):
     required_css_class = 'required'
-    min_date = forms.CharField(label='Date de début', max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'jj.mm.aaaa', 'autofocus': True}))
-    max_date = forms.CharField(label='Date de fin', max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'jj.mm.aaaa'}))
+    min_date = forms.CharField(label='Date de début', max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'jj.mm.aaaa', 'autofocus': True, 'tabindex':1}))
+    max_date = forms.CharField(label='Date de fin', max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'jj.mm.aaaa', 'tabindex':2}))
 
 class Meta:
         fields = ['min_date', 'max_date']
