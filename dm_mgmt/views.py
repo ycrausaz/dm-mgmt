@@ -37,6 +37,12 @@ import json
 
 import pandas as pd
 
+import calendar
+from django.utils import translation
+from django.utils.translation import gettext as _
+translation.activate('fr')
+
+
 import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -334,6 +340,7 @@ class StatsView(View):
         df = pd.DataFrame(services)
         df_init = df.copy()
         df['client_gender'] = df['client_gender'].astype('category').cat.codes
+        df['weekday'] = df['service_date'].apply(lambda x: _(calendar.day_name[x.weekday()]).capitalize())
 
         nb_m = len(df[df['client_gender']==1])
         nb_f = len(df[df['client_gender']==0])
@@ -344,13 +351,16 @@ class StatsView(View):
         top_clients_10 = df.nlargest(10, 'service_duration')[['client_id', 'client_name', 'service_duration']]
 #        top_clients_10 = dict(zip(top_clients_10['client_id'], top_clients_10['client_name'], top_clients_10['service_duration']))
         top_clients_10 = top_clients_10.to_dict(orient='index')
-        print(top_clients_10)
+#        print(top_clients_10)
 
         top_massages_10 = df[~(df[df.columns[4]].str.match("abo.*", case=False) | df[df.columns[4]].str.match("bon.*", case=False))]
         top_massages_10 = top_massages_10.nlargest(10, 'service_duration')[['service_id', 'massage_name', 'service_duration']]
 #        top_massages_10 = dict(zip(top_massages_10['massage_id'], top_massages_10['massage_name'], top_massages_10['service_duration']))
         top_massages_10 = top_massages_10.to_dict(orient='index')
-        print(top_massages_10)
+#        print(top_massages_10)
+
+        top_days_3 = df.nlargest(3, 'service_duration')[['service_id', 'weekday', 'service_duration']]
+        top_days_3 = top_days_3.to_dict(orient='index')
 
         context = {
             'min_date': min_date,
@@ -362,6 +372,7 @@ class StatsView(View):
             'total_chf': total_chf,
             'top_clients_10': top_clients_10,
             'top_massages_10': top_massages_10,
+            'top_days_3': top_days_3,
             'df': df_init.to_html(),
         }
 

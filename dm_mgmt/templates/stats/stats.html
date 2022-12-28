@@ -38,6 +38,19 @@
     {% endfor %}
     <br/>
     <br/>
+    Top 3 des jours les plus rentables :<br/>
+     {% for key, value in top_days_3.items %}
+        <div style="text-indent: 50px;">
+        {{ forloop.counter }}. 
+        <script>
+            line = "{{ value }}".split(",")
+            console.log(line[1].split(":")[1]);
+            document.write(line[1].split(":")[1].replaceAll("&#x27;", "") + " : " + line[2].split(":")[1].replace("}", "") + " heures");
+        </script
+        </div>
+    {% endfor %}
+    <br/>
+    <br/>
     Liste complète :<br/>
     {{ df | safe }}
 {% endblock %}
