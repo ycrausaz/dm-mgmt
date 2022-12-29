@@ -12,41 +12,26 @@
     Montant total encaissé : CHF {{ total_chf | floatformat:"-2u" }}
     <br/>
     <br/>
-    Top 10 des clients et le nombre d'heures de prestations :<br/>
-    {% for key, value in top_clients_10.items %}
+    Top 10 des clients et le montant total investi :<br/>
+    {% for client in top_clients_10 %}
         <div style="text-indent: 50px;">
-        {{ forloop.counter }}. 
-        <script>
-            line = "{{ value }}".split(",")
-            console.log(line[1].split(":")[1]);
-            document.write(line[1].split(":")[1].replaceAll("&#x27;", "") + " : " + line[2].split(":")[1].replace("}", "") + " heures");
-        </script
+        {{ forloop.counter }}. {{ client.client_name }} : CHF {{ client.service_cashed_price }}
         </div>
     {% endfor %}
     <br/>
     <br/>
     Top {{ top_massages_10 | length }} des massages et le nombre d'heures de prestations :<br/>
-    {% for key, value in top_massages_10.items %}
+    {% for massage in top_massages_10 %}
         <div style="text-indent: 50px;">
-        {{ forloop.counter }}. 
-        <script>
-            line = "{{ value }}".split(",")
-            console.log(line[1].split(":")[1]);
-            document.write(line[1].split(":")[1].replaceAll("&#x27;", "") + " : " + line[2].split(":")[1].replace("}", "") + " heures");
-        </script
+        {{ forloop.counter }}. {{ massage.massage_name }} : {{ massage.service_duration }} heures
         </div>
     {% endfor %}
     <br/>
     <br/>
     Top 3 des jours les plus rentables :<br/>
-     {% for key, value in top_days_3.items %}
+     {% for day in top_days_3 %}
         <div style="text-indent: 50px;">
-        {{ forloop.counter }}. 
-        <script>
-            line = "{{ value }}".split(",")
-            console.log(line[1].split(":")[1]);
-            document.write(line[1].split(":")[1].replaceAll("&#x27;", "") + " : " + line[2].split(":")[1].replace("}", "") + " heures");
-        </script
+        {{ forloop.counter }}. {{ day.weekday }} : {{ day.service_duration }} heures
         </div>
     {% endfor %}
     <br/>

@@ -338,9 +338,10 @@ class StatsView(View):
 
         services = ConsoService.objects.filter(service_date__range=(min_date_sql, max_date_sql)).values()
         df = pd.DataFrame(services)
-        df_init = df.copy()
         df['client_gender'] = df['client_gender'].astype('category').cat.codes
         df['weekday'] = df['service_date'].apply(lambda x: _(calendar.day_name[x.weekday()]).capitalize())
+        df['service_cashed_price'] = df['service_cashed_price'].astype(float)
+        df_init = df.copy()
 
         nb_m = len(df[df['client_gender']==1])
         nb_f = len(df[df['client_gender']==0])
@@ -348,19 +349,41 @@ class StatsView(View):
         total_h = df['service_duration'].sum()/60
         total_chf = df['service_cashed_price'].sum()
 
-        top_clients_10 = df.nlargest(10, 'service_duration')[['client_id', 'client_name', 'service_duration']]
-#        top_clients_10 = dict(zip(top_clients_10['client_id'], top_clients_10['client_name'], top_clients_10['service_duration']))
-        top_clients_10 = top_clients_10.to_dict(orient='index')
-#        print(top_clients_10)
+        df = df[['client_id', 'client_name', 'service_cashed_price']].groupby(['client_id', 'client_name'], as_index=False).sum().sort_values(['service_cashed_price'])
+        print (df)
+        print(df.columns.values)
+        
+        top_clients_10 = df.nlargest(10, 'service_cashed_price')[['client_id', 'client_name', 'service_cashed_price']]
+        top_clients_10_dict = []
+        for i, row in top_clients_10.iterrows():
+            top_clients_10_dict.append({
+                'client_id': row['client_id'], 
+                'client_name': row['client_name'],
+                'service_cashed_price': row['service_cashed_price']
+            })
 
+        df = df_init.copy()
         top_massages_10 = df[~(df[df.columns[4]].str.match("abo.*", case=False) | df[df.columns[4]].str.match("bon.*", case=False))]
         top_massages_10 = top_massages_10.nlargest(10, 'service_duration')[['service_id', 'massage_name', 'service_duration']]
-#        top_massages_10 = dict(zip(top_massages_10['massage_id'], top_massages_10['massage_name'], top_massages_10['service_duration']))
-        top_massages_10 = top_massages_10.to_dict(orient='index')
-#        print(top_massages_10)
+        top_massages_10_dict = []
+        for i, row in top_massages_10.iterrows():
+            top_massages_10_dict.append({
+                'service_id': row['service_id'], 
+                'massage_name': row['massage_name'],
+                'service_duration': row['service_duration']
+            })
 
+
+        df = df_init.copy()
         top_days_3 = df.nlargest(3, 'service_duration')[['service_id', 'weekday', 'service_duration']]
-        top_days_3 = top_days_3.to_dict(orient='index')
+        top_days_3_dict = []
+        for i, row in top_days_3.iterrows():
+            top_days_3_dict.append({
+                'service_id': row['service_id'], 
+                'weekday': row['weekday'],
+                'service_duration': row['service_duration']
+            })
+
 
         context = {
             'min_date': min_date,
@@ -370,9 +393,9 @@ class StatsView(View):
             'nb_m': nb_m,
             'total_h': total_h,
             'total_chf': total_chf,
-            'top_clients_10': top_clients_10,
-            'top_massages_10': top_massages_10,
-            'top_days_3': top_days_3,
+            'top_clients_10': top_clients_10_dict,
+            'top_massages_10': top_massages_10_dict,
+            'top_days_3': top_days_3_dict,
             'df': df_init.to_html(),
         }
 
