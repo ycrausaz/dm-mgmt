@@ -361,11 +361,8 @@ class StatsView(View):
             })
 
         df = df_init.copy()
-        print (df)
         df = df[~(df[df.columns[4]].str.match("abo.*", case=False) | df[df.columns[4]].str.match("bon.*", case=False))]
-        print (df)
         top_massages_10 = df[['service_id', 'massage_name', 'service_duration']].groupby(['massage_name'], as_index=False).sum().sort_values(['service_duration'])
-        print (top_massages_10)
         top_massages_10 = top_massages_10.nlargest(10, 'service_duration')[['service_id', 'massage_name', 'service_duration']]
         top_massages_10_dict = []
         for i, row in top_massages_10.iterrows():
