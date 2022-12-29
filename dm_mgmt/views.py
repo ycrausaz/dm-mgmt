@@ -350,8 +350,6 @@ class StatsView(View):
         total_chf = df['service_cashed_price'].sum()
 
         df = df[['client_id', 'client_name', 'service_cashed_price']].groupby(['client_id', 'client_name'], as_index=False).sum().sort_values(['service_cashed_price'])
-        print (df)
-        print(df.columns.values)
         
         top_clients_10 = df.nlargest(10, 'service_cashed_price')[['client_id', 'client_name', 'service_cashed_price']]
         top_clients_10_dict = []
@@ -363,7 +361,11 @@ class StatsView(View):
             })
 
         df = df_init.copy()
-        top_massages_10 = df[~(df[df.columns[4]].str.match("abo.*", case=False) | df[df.columns[4]].str.match("bon.*", case=False))]
+        print (df)
+        df = df[~(df[df.columns[4]].str.match("abo.*", case=False) | df[df.columns[4]].str.match("bon.*", case=False))]
+        print (df)
+        top_massages_10 = df[['service_id', 'massage_name', 'service_duration']].groupby(['massage_name'], as_index=False).sum().sort_values(['service_duration'])
+        print (top_massages_10)
         top_massages_10 = top_massages_10.nlargest(10, 'service_duration')[['service_id', 'massage_name', 'service_duration']]
         top_massages_10_dict = []
         for i, row in top_massages_10.iterrows():
