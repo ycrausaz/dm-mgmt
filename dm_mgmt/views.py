@@ -375,6 +375,8 @@ class StatsView(View):
 
 
         df = df_init.copy()
+        print (df)
+        df = df[['service_id', 'weekday', 'service_duration']].groupby(['weekday'], as_index=False).sum().sort_values(['service_duration'])
         top_days_3 = df.nlargest(3, 'service_duration')[['service_id', 'weekday', 'service_duration']]
         top_days_3_dict = []
         for i, row in top_days_3.iterrows():
