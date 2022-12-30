@@ -11,8 +11,6 @@
     <br/>
     Montant total encaissé : CHF 
     <script>
-        console.log("{{total_chf}}");
-        console.log("{{total_chf | floatformat:'-2u'}}");
         if ("{{ total_chf }}".endsWith(".0")) {
             document.write("{{ total_chf }}".replace(".0", "") + ".-");
         } else {
