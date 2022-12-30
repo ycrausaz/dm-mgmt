@@ -15,7 +15,14 @@
     Top 10 des clients et le montant total investi :<br/>
     {% for client in top_clients_10 %}
         <div style="text-indent: 50px;">
-        {{ forloop.counter }}. {{ client.client_name }} : CHF {{ client.service_cashed_price | floatformat:"-2u" }}
+        {{ forloop.counter }}. {{ client.client_name }} : CHF
+        <script>
+            if ("{{ client.service_cashed_price }}".indexOf(".0") >= 0) {
+                document.write("{{ client.service_cashed_price }}".replace(".0", "") + ".-");
+            } else {
+               document.write("{{ client.service_cashed_price | floatformat:'-2u'}}");
+            }
+        </script>
         </div>
     {% endfor %}
     <br/>
@@ -23,7 +30,7 @@
     Top {{ top_massages_10 | length }} des massages et le nombre d'heures de prestations :<br/>
     {% for massage in top_massages_10 %}
         <div style="text-indent: 50px;">
-        {{ forloop.counter }}. {{ massage.massage_name }} : {{ massage.service_duration | floatformat:"-2u" }} heures
+        {{ forloop.counter }}. {{ massage.massage_name }} : {{ massage.service_duration | floatformat:"-2u" }} heure{{ massage.service_duration|pluralize }}
         </div>
     {% endfor %}
     <br/>
@@ -31,7 +38,7 @@
     Top 3 des jours les plus rentables :<br/>
      {% for day in top_days_3 %}
         <div style="text-indent: 50px;">
-        {{ forloop.counter }}. {{ day.weekday }} : {{ day.service_duration | floatformat:"-2u" }} heures
+        {{ forloop.counter }}. {{ day.weekday }} : {{ day.service_duration | floatformat:"-2u" }} heure{{ day.service_duration|pluralize }}
         </div>
     {% endfor %}
     <br/>
