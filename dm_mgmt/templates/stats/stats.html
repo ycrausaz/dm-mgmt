@@ -6,10 +6,17 @@
     Nombre de prestations fournies : {{ nb_total }} (femmes : {{ nb_f }}, hommes : {{nb_m }})
     <br/>
     <br/>
-    Durée totale : {{ total_h | floatformat:"-2u" }} heures
+    Durée totale : {{ total_h | floatformat:"-2u" }} heure{{ total_h|pluralize }}
     <br/>
     <br/>
-    Montant total encaissé : CHF {{ total_chf | floatformat:"-2u" }}
+    Montant total encaissé : CHF 
+    <script>
+        if ("{{ total_chf }}".indexOf(".0" >= 0)) {
+            document.write("{{ total_chf }}".replace(".0", "") + ".-");
+        } else {
+            document.write("{{ total_chf | floatformat:'-2u'}}");
+        }
+    </script
     <br/>
     <br/>
     Top 10 des clients et le montant total investi :<br/>
