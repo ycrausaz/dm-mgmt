@@ -49,7 +49,27 @@
         </div>
     {% endfor %}
     <br/>
+    <input type=button value="Retour" class="btn btn-primary" onClick="javascript:history.go(-    1);">
+    <input type=button value="Afficher les données" id="btn_show_hide" class="btn btn-secondary" onClick="myShowHideFunction()">
     <br/>
+    <br/>
+    <div id="div_id_list" style="display: none;">
     Liste complète :<br/>
     {{ df | safe }}
+    </div>
+
+    <script>
+        function myShowHideFunction() {
+            var theDiv = document.getElementById("div_id_list");
+            var theBtn = document.getElementById("btn_show_hide");
+            if (theDiv.style.display === "none") {
+                theDiv.style.display = "block";
+                theBtn.value = "Masquer les données";
+            } else {
+                theDiv.style.display = "none";
+                theBtn.value = "Afficher les données";
+            }
+        }
+    </script>
+
 {% endblock %}
