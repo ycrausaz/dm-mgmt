@@ -20,10 +20,12 @@
 
     <script>
 
-    const data_massage_is_voucher = '{{json_massage_is_voucher}}'
-    const data_massage_price = '{{json_massage_price}}'
-    const rdata_massage_is_voucher = JSON.parse(data_massage_is_voucher.replace(/&quot;/g, '"'))
-    const rdata_massage_price = JSON.parse(data_massage_price.replace(/&quot;/g, '"'))
+    const data_massage_is_voucher = '{{json_massage_is_voucher}}';
+    const data_massage_price = '{{json_massage_price}}';
+    const data_massage_duration = '{{json_massage_duration}}';
+    const rdata_massage_is_voucher = JSON.parse(data_massage_is_voucher.replace(/&quot;/g, '"'));
+    const rdata_massage_price = JSON.parse(data_massage_price.replace(/&quot;/g, '"'));
+    const rdata_massage_duration = JSON.parse(data_massage_duration.replace(/&quot;/g, '"'));
 
     function download(content, fileName, contentType) {
         var a = document.createElement("a");
@@ -49,6 +51,7 @@
     function updateMassageInfo() {
         updateIsVoucher();
         updatePrice();
+        updateDuration();
     }
 
     function updateIsVoucher() {
@@ -82,6 +85,14 @@
 //            document.getElementById('id_service_cashed_price').focus();
 //            document.getElementById('id_service_cashed_price').select();
         }
+    }
+
+    function updateDuration() {
+        var duration = 0;
+        const massage_id = document.getElementById('id_service_massage_id').value;
+        duration = getValueFromKey(rdata_massage_duration, massage_id);
+        console.log("duration = " + duration);
+        document.getElementById("id_service_duration").value = duration;
     }
     
     document.getElementById("id_service_is_voucher").addEventListener('change', function() {

@@ -126,6 +126,7 @@ class AddServiceView(SuccessMessageMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context["json_massage_is_voucher"] = json.dumps(list(Massage.objects.values_list('massage_id', 'massage_is_voucher')))
         context["json_massage_price"] = json.dumps(list(Massage.objects.values_list('massage_id', 'massage_price')))
+        context["json_massage_duration"] = json.dumps(list(Massage.objects.values_list('massage_id', 'massage_duration')))
         return context
 
     def get_success_message(self, cleaned_data):
@@ -369,7 +370,7 @@ class StatsView(View):
             top_massages_10_dict.append({
                 'service_id': row['service_id'], 
                 'massage_name': row['massage_name'],
-                'service_duration': row['service_duration']
+                'service_duration': row['service_duration']/60
             })
 
 
@@ -380,7 +381,7 @@ class StatsView(View):
             top_days_3_dict.append({
                 'service_id': row['service_id'], 
                 'weekday': row['weekday'],
-                'service_duration': row['service_duration']
+                'service_duration': row['service_duration']/60
             })
 
 
