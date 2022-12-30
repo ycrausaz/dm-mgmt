@@ -68,7 +68,7 @@ class Service(models.Model):
     service_duration = models.PositiveSmallIntegerField('Durée du massage (en minutes)', blank=False, null=False, default=0)
     service_comment = models.TextField('Remarque', blank=True, null=True)
 #    service_cashed_price = models.FloatField('Montant encaissé (CHF)')
-    service_cashed_price = models.DecimalField('Montant encaissé (CHF)', max_digits=5, decimal_places=2)
+    service_cashed_price = models.DecimalField('Montant encaissé (CHF)', max_digits=6, decimal_places=2)
     service_is_voucher = models.BooleanField('Bon / abonnement', blank=True, default=False)
 
     def __str__(self):

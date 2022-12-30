@@ -56,7 +56,7 @@ class Migration(migrations.Migration):
                 ('service_date', models.DateField(verbose_name='Date du massage')),
                 ('service_duration', models.PositiveSmallIntegerField(default=0, verbose_name='Durée du massage (en minutes)')),
                 ('service_comment', models.TextField(blank=True, null=True, verbose_name='Remarque')),
-                ('service_cashed_price', models.DecimalField(decimal_places=2, max_digits=5, verbose_name='Montant encaissé (CHF)')),
+                ('service_cashed_price', models.DecimalField(decimal_places=2, max_digits=6, verbose_name='Montant encaissé (CHF)')),
                 ('service_is_voucher', models.BooleanField(blank=True, default=False, verbose_name='Bon / abonnement')),
                 ('service_client_id', models.ForeignKey(limit_choices_to={'client_is_displayed': True}, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='dm_mgmt.client', verbose_name='Client')),
                 ('service_massage_id', models.ForeignKey(limit_choices_to={'massage_is_available': True}, null=True, on_delete=django.db.models.deletion.DO_NOTHING, to='dm_mgmt.massage', verbose_name='Massage')),
