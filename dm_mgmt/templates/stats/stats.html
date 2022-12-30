@@ -11,7 +11,9 @@
     <br/>
     Montant total encaissé : CHF 
     <script>
-        if ("{{ total_chf }}".indexOf(".0" >= 0)) {
+        console.log("{{total_chf}}");
+        console.log("{{total_chf | floatformat:'-2u'}}");
+        if ("{{ total_chf }}".endsWith(".0")) {
             document.write("{{ total_chf }}".replace(".0", "") + ".-");
         } else {
             document.write("{{ total_chf | floatformat:'-2u'}}");
@@ -24,7 +26,7 @@
         <div style="text-indent: 50px;">
         {{ forloop.counter }}. {{ client.client_name }} : CHF
         <script>
-            if ("{{ client.service_cashed_price }}".indexOf(".0") >= 0) {
+            if ("{{ client.service_cashed_price }}".endsWith(".0")) {
                 document.write("{{ client.service_cashed_price }}".replace(".0", "") + ".-");
             } else {
                document.write("{{ client.service_cashed_price | floatformat:'-2u'}}");
