@@ -37,14 +37,6 @@ import json
 
 import pandas as pd
 
-import subprocess
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.base import MIMEBase
-from email.mime.text import MIMEText
-from email.utils import COMMASPACE, formatdate
-from email import encoders
-
 import calendar
 from django.utils import translation
 from django.utils.translation import gettext as _
@@ -429,36 +421,3 @@ class UserLogout(View):
     def get(self, request, *args, **kwargs):
         logout(request)
         return redirect('login-user')
-
-class BackupDB(View):
-    def backup_database(self):
-        # Run the pg_dump command to create a backup of the database
-        subprocess.run(['pg_dump', 'da9m3d3867c50p', '-f', 'database.sql'])
-    
-        # Create the email message
-        msg = MIMEMultipart()
-        msg['From'] = 'yann.crausaz@gmail.com'
-        msg['To'] = COMMASPACE.join(['yann.crausaz@gmail.com'])
-        msg['Date'] = formatdate(localtime=True)
-        msg['Subject'] = 'Database Backup'
-    
-        # Add the backup file as an attachment
-        with open('database.sql', 'rb') as f:
-            part = MIMEBase('application', 'octet-stream', Name='database.sql')
-            part.set_payload((f).read())
-            encoders.encode_base64(part)
-            part.add_header('Content-Disposition', "attachment; filename= %s" % 'database.sql')
-            msg.attach(part)
-    
-        # Send the email
-        server = smtplib.SMTP('smtp.gmail.com', 587)
-        server.starttls()
-        server.login('yann.crausaz@gmail.com', 'xxxx')
-        server.sendmail('yann.crausaz@gmail.com', 'yann.crausaz@gmail.com', msg.as_string())
-        server.quit()
-
-    def get(self, request, *args, **kwargs):
-        self.backup_database()
-        return redirect('add-service')
-
-
