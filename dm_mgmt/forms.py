@@ -32,7 +32,7 @@ class ClientForm(ModelForm):
         widgets = {
             'client_last_name': forms.TextInput(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Nom'}),
             'client_first_name': forms.TextInput(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Prénom'}),
-            'client_gender': forms.Select(choices=Client.GENDER_CHOICES),
+            'client_gender': forms.Select(choices=Client.GENDER_CHOICES, attrs={'class':'form-control', 'style':'width:300px'}),
             'client_birthdate': forms.DateInput(format="%d.%m.%Y", attrs={'class':'form-control', 'style':'width:300px;', 'placeholder':'jj.mm.aaaa'}),
             'client_address': forms.TextInput(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Adresse'}),
             'client_additional_address': forms.TextInput(attrs={'class':'form-control', 'style':'width: 300px;'}),#, 'placeholder':'Complément d\'adresse'}),
